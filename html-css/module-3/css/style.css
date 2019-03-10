@@ -1,6 +1,9 @@
-body, h2, p, ul {
+body {
 	margin: 0;
 	padding: 0;
+	font-family: 'Playfair Display', serif;
+	font-weight: 400;
+	color: #626262;
 }
 .wrapper {
 	margin: 0 auto;
@@ -11,18 +14,17 @@ header {
 	margin-bottom: 100px;
 	text-align: center;
 }
+.navigation {
+	margin: 0;
+	padding: 0;
+}
 li {
-	display: inline;
+	display: inline-block;
+	margin-right: 110px;
 	text-transform: uppercase;
 }
-li:nth-of-type(1) {
-	margin-right: 125px;
-}
-li:nth-of-type(2) {
-	margin-right: 108px;
-}
-li:nth-of-type(3) {
-	margin-right: 95px;
+li:last-child {
+	margin-right: 0px;
 }
 a {
 	text-decoration: none;
@@ -30,44 +32,36 @@ a {
 }
 article {
 	float: left;
+	display: inline-block;
 	margin-bottom: 130px;
-	width: 420px;
-	height: 480px;
-}
-article:first-child {
 	margin-right: 60px;
+	width: 420px;
 }
-.bottom {
-	margin-bottom: 50px;
+article:nth-of-type(2n) {
+	margin-right: 0;
 }
-img {
-	margin-bottom: 30px;
+article:nth-last-child(-n+2) {
+	margin-bottom: 0;
 }
 .article_type {
 	margin-bottom: 25px;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: 300;
 	text-transform: uppercase;
 	color: #b4ad9e;
 }
-h2 {
-	margin-bottom: 33px;
-	color: #626262;
-}
-p {
-	color: #626262;
+main {
+	display: inline-block;
+	margin-bottom: 55px;
 }
 button {
 	display: block;
 	margin: 0 auto;
-	width: 165px;
-	height: 60px;
-	padding: 0;
+	padding: 22px 38px;
   font: inherit;
   color: #626262;
 	background-color: transparent;
 	border: 1px solid #626262;
-}
-button:active, button:focus {
-	outline: none;
 }
 button:hover {
 	cursor: pointer;
