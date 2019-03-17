@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  margin: 0 auto;
+  padding: 35px 0 80px;
+  width: 1110px;
+}
+header {
+  height: 36px;
+  margin-bottom: 98px;
+  font-size: 0px;
+}
+.logo {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  width: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 36px;
+  text-transform: uppercase;
+  color: #555252;
+}
+.logo span {
+  font-weight: 700;
+  color: #1abc9c;
+}
+nav {
+  display: inline-block;
+  vertical-align: middle;
+  width: calc(100% - 100px);
+}
+.navigation {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: right;
+}
+.navigation li {
+  display: inline;
+  margin-right: 32px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 36px;
+  text-transform: uppercase;
+}
+.navigation li:last-child {
+  margin-right: 0;
+}
+.navigation a {
+  text-decoration: none;
+  color: #0f0101;
+}
+.navigation a:hover {
+  color: #1abc9c;
+}
+h2 {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #515151;
+}
