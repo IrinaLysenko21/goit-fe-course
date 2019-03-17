@@ -25,7 +25,7 @@ header {
   color: #555252;
 }
 .logo span {
-  font-weight: 700;
+  font-weight: 900;
   color: #1abc9c;
 }
 nav {
@@ -59,15 +59,17 @@ nav {
   color: #1abc9c;
 }
 .products {
-  font-size: 0;
   margin-bottom: 100px;
+  height: auto;
+  overflow: hidden;
 }
 h2 {
+  margin-top: 0;
   margin-bottom: 92px;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 900;
   text-transform: uppercase;
   color: #515151;
 }
@@ -82,9 +84,11 @@ h2::after {
 }
 .item {
   display: inline-block;
+  float: left;
   width: 255px;
   margin-right: 30px;
   margin-bottom: 30px;
+  font-size: 0;
 }
 .item:nth-child(4n+1) {
   margin-right: 0;
@@ -96,21 +100,23 @@ h2::after {
   height: 40px;
   background-color: #323232;
   font-family: 'Roboto', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
   line-height: 40px;
   text-transform: uppercase;
   color: #fff;
 }
 .item-name h3 {
-display: inline;
-padding-left: 15px;
+  display: inline;
+  padding-left: 15px;
+  font-weight: 900;
+  font-size: 18px;
 }
 .item-name span {
   display: inline-block;
   float: right;
   width: 54px;
   height: 40px;
+  font-size: 18px;
+  font-weight: 900;
   background-color: rgb(255, 255, 255, .5);
   text-align: center;
 }
@@ -118,14 +124,55 @@ padding-left: 15px;
   background-color: #1abc9c;
 }
 .news {
-  font-size: 0;
+height: auto;
+overflow: hidden;
 }
 .news h2 {
   font-size: 48px;
   margin-bottom: 80px;
 }
-.news article {
+article {
   display: inline-block;
+  float: left;
   width: 350px;
+  margin-right: 30px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0;
+}
+article:last-child {
+  margin-right: 0;
+}
+article h3 {
+  margin: 16px 0 30px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #555252;
+}
+article h3:after {
+content: "";
+display: block;
+width: 136px;
+height: 3px;
+margin-top: 13px;
+background-color: #1abc9c;
+}
+article p {
+  margin-top: 0;
+  margin-bottom: 18px;
   font-size: 14px;
+  font-weight: 400;
+  color: #555252;
+}
+button {
+  width: 160px;
+  height: 50px;
+  padding: 0;
+  border-radius: 3px;
+  background-color: #1abc9c;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 300;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
