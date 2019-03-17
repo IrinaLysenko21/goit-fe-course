@@ -58,11 +58,74 @@ nav {
 .navigation a:hover {
   color: #1abc9c;
 }
+.products {
+  font-size: 0;
+  margin-bottom: 100px;
+}
 h2 {
+  margin-bottom: 92px;
   text-align: center;
   font-family: 'Roboto', sans-serif;
   font-size: 48px;
   font-weight: 700;
   text-transform: uppercase;
   color: #515151;
+}
+h2::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  margin-top: 28px;
+  width: 164px;
+  height: 7px;
+  background-color: #1abc9c;
+}
+.item {
+  display: inline-block;
+  width: 255px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+.item:nth-child(4n+1) {
+  margin-right: 0;
+}
+.item:nth-last-child(-n+4) {
+  margin-bottom: 0;
+}
+.item-name {
+  height: 40px;
+  background-color: #323232;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 40px;
+  text-transform: uppercase;
+  color: #fff;
+}
+.item-name h3 {
+display: inline;
+padding-left: 15px;
+}
+.item-name span {
+  display: inline-block;
+  float: right;
+  width: 54px;
+  height: 40px;
+  background-color: rgb(255, 255, 255, .5);
+  text-align: center;
+}
+.item:hover > .item-name {
+  background-color: #1abc9c;
+}
+.news {
+  font-size: 0;
+}
+.news h2 {
+  font-size: 48px;
+  margin-bottom: 80px;
+}
+.news article {
+  display: inline-block;
+  width: 350px;
+  font-size: 14px;
 }
