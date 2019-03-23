@@ -72,7 +72,10 @@ main {
   left: 50%;
   transform: translateX(-50%);
   height: 600px;
-  z-index: 1;
+  z-index: 3;
+}
+button {
+  cursor: pointer;
 }
 .prew-slide, .next-slide {
   position: absolute;
@@ -82,8 +85,6 @@ main {
   height: 104px;
   padding: 0;
   border: none;
-  font-size: 100px;
-  color: #fff;
   background-color: #1abc9c;
   background-repeat: no-repeat;
   background-position: center;
@@ -91,6 +92,7 @@ main {
 }
 .prew-slide{
   background-image: url(../img/arrow-left.png);
+  background-color: rgba(26, 188, 156, .65);
 }
 .next-slide {
   right: 0;
@@ -105,7 +107,6 @@ main {
 .slider-item {
   position: relative;
   font-family: 'Roboto', sans-serif;
-  text-align: center;
   color: #fff;
 }
 .slider-item img {
@@ -130,6 +131,19 @@ h2 {
   top: 214px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2;
+}
+.slide-content{
+  padding-left: 185px;
+}
+.slide-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 600px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .52);
+  z-index: 1;
 }
 .new-collection {
   height: auto;
@@ -244,10 +258,10 @@ h3::after {
   background-color: #323232;
   border: 1px solid #fff;
 }
-.item:hover > .item-name {
+.item:hover > .item-name, .item:focus > .item-name {
   background-color: #1abc9c;
 }
-.item:hover > .item-options {
+.item:hover > .item-options, .item:focus > .item-options {
   position: absolute;
   display: block;
   top: 0;
