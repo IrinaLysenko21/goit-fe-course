@@ -83,13 +83,18 @@ h2::after {
   margin-top: 40px;
   background-color: #f38181;
 }
-.list-of-services {
+.services {
+  margin-bottom: 88px;
+}
+.list-of-services, .team-members {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.list-of-services {
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .service-item {
   width: 300px;
@@ -131,4 +136,24 @@ p {
   font-size: 15px;
   font-weight: 400;
   color: #999999;
+}
+.team h2 {
+  margin: 0 0 44px;
+}
+h2+p {
+  max-width: 980px;
+  margin: 0 auto;
+  margin-bottom: 94px;
+}
+.team-members {
+  justify-content: space-between;
+}
+.team-member {
+  position: relative;
+}
+.overlay {
+  position: absolute;
+  width: 380px;
+  height: 470px;
+  background-image: linear-gradient(rgb(243, 129, 129, .9), rgb(252, 227, 138, .9));
 }
