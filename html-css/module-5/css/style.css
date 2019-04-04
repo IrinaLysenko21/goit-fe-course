@@ -13,25 +13,31 @@ header {
   padding: 35px 0 30px;
   font-size: 0px;
 }
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .logo {
   display: inline-block;
   vertical-align: middle;
+  text-decoration: none;
+}
+h1 {
   margin: 0;
-  width: 100px;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 30px;
   line-height: 36px;
   color: #555252;
 }
-.logo span {
+h1 span {
   font-weight: 900;
   color: #1abc9c;
 }
 nav {
-  display: inline-block;
   vertical-align: middle;
-  width: calc(100% - 100px);
+  float: right;
 }
 .navigation {
   margin: 0;
@@ -51,6 +57,7 @@ nav {
   margin-right: 0;
 }
 .navigation a {
+  display: inline-block;
   text-decoration: none;
   color: #0f0101;
 }
@@ -59,12 +66,10 @@ nav {
 }
 main {
   background-color: #e9f0fd;
-  padding-bottom: 100px;
 }
 .slider {
   position: relative;
   height: 600px;
-  margin-bottom: 95px;
 }
 .wrapper {
   position: absolute;
@@ -145,6 +150,7 @@ h2 {
   z-index: 1;
 }
 .new-collection {
+  padding: 95px 0 100px;
   height: auto;
   overflow: hidden;
 }
@@ -231,13 +237,15 @@ h3::after {
 .heart {
   background-image: url(../img/button-heart.png);
 }
-.small-buttons .arrows {
-  border: none;
-  background-color: #1abc9c;
+.arrows {
   background-image: url(../img/button-arrows.png);
 }
 .clock {
   background-image: url(../img/button-clock.png);
+}
+.small-buttons button:hover {
+  background-color: #1abc9c;
+  border: 1px solid #1abc9c;
 }
 .add-to-cart {
   width: 166px;
