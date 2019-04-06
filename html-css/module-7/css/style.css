@@ -15,10 +15,11 @@ h1 {
   color: #fed136;
 }
 .navigation li {
-  display: inline;
+  display: inline-block;
   margin-right: 40px;
 }
 .navigation a {
+  display: block;
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 400;
