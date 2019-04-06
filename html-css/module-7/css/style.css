@@ -1,13 +1,3 @@
-body, h1, h2, h3, ul, p {
-  margin: 0;
-  padding: 0;
-}
-a {
-  text-decoration: none;
-}
-ul {
-  list-style: none;
-}
 .container {
   width: 940px;
   margin: 0 auto;
@@ -38,7 +28,7 @@ h1 {
 .navigation li:last-child {
   margin-right: 0;
 }
-.navigation a:hover {
+.navigation a:hover, .navigation a:focus {
   color: #fed136;
 }
 .services {
@@ -101,4 +91,66 @@ h3::before {
   font-size: 14px;
   font-weight: 400;
   color: #777777;
+}
+.contact-us {
+  padding: 106px 0 115px;
+  text-align: center;
+  background-color: #222222;
+  background-image: url(../img/background-map.png);
+  background-position: right 120px;
+  background-repeat: no-repeat;
+}
+.contact-us h2 {
+  color: #fff;
+}
+.form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.form-section {
+  width: 457px;
+}
+.form-field {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 20px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+}
+.form-field::placeholder, button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.form-field::placeholder {
+  font-size: 14px;
+  color: #bbbbbb;
+}
+.form-field:valid {
+  outline: 2px solid #10c810;
+}
+.form-field:invalid {
+  outline: 2px solid #f32e0b;
+}
+input {
+  height: 52px;
+  margin-bottom: 28px;
+}
+input:last-child {
+  margin-bottom: 0;
+}
+textarea.form-field {
+  height: 100%;
+  padding: 20px;
+  resize: none;
+}
+button {
+  width: 240px;
+  height: 65px;
+  color: #fff;
+  background-color: #fed136;
+  border-radius: 3px;
+  cursor: pointer;
 }
