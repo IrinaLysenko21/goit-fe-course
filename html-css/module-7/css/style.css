@@ -2,7 +2,7 @@
   width: 940px;
   margin: 0 auto;
 }
-header {
+.container.header-wrapper {
   display: flex;
   padding: 42px 0;
   justify-content: space-between;
