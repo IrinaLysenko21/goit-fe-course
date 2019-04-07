@@ -46,7 +46,7 @@ nav {
   text-align: right;
 }
 .navigation li {
-  display: inline;
+  display: inline-block;
   margin-right: 32px;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -57,7 +57,7 @@ nav {
   margin-right: 0;
 }
 .navigation a {
-  display: inline-block;
+  display: block;
   text-decoration: none;
   color: #0f0101;
 }
