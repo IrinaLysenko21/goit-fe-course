@@ -122,7 +122,8 @@ h2 {
   margin-top: 0;
   margin-bottom: 30px;
   font-size: 60px;
-  font-weight: 900;
+  font-weight: 700;
+  letter-spacing: -4px;
 }
 .text {
   margin: 0;
@@ -252,6 +253,7 @@ h3::after {
   height: 50px;
   padding: 0 15px;
   font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
   font-size: 14px;
   color: #fff;
   text-align: right;
@@ -280,6 +282,7 @@ footer {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  font-weight: 400;
   line-height: 88px;
   text-transform: none;
   color: #fefefe;
