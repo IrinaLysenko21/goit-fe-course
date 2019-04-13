@@ -1,0 +1,108 @@
+.container {
+  width: 320px;
+  margin: 0 auto;
+  text-align: center;
+}
+.banner-wrapper {
+  margin: 0 auto;
+  max-width: 767px;
+  background-image: url(../img/banner_mobile.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #000;
+}
+header {
+  padding: 20px;
+}
+.page-heading {
+  padding: 15px 20px 138px;
+}
+button {
+  display: inline-block;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.log-in, .sign-up {
+  width: 90px;
+  height: 36px;
+  color: #fff;
+  background-color: transparent;
+  border-radius: 18px;
+}
+.sign-up {
+  margin-bottom: 118px;
+  border: 2px solid #fff;
+}
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+h1, h2 {
+  text-transform: uppercase;
+  color: #fff;
+}
+h1 {
+  font-size: 20px;
+}
+h2 {
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+h2 + p, h4 + p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+}
+h2 + p{
+  margin-bottom: 18px;
+  font-size: 18px;
+  color: #fff;
+}
+.find-partner, .other-partners {
+  width: 280px;
+  height: 40px;
+  border-radius: 20px;
+}
+.find-partner {
+  color: #fff;
+  background-color: #ff4e50;
+}
+section {
+  padding: 68px 20px 56px;
+}
+.partners li {
+  margin-bottom: 28px;
+}
+h3, h4 {
+  color: #333333;
+}
+h3 {
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+h4 {
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 122px;
+  height: 122px;
+  margin-bottom: 18px;
+}
+img {
+  border-radius: 50%;
+}
+h4 + p {
+  font-size: 14px;
+  color: #666666;
+}
+.other-partners {
+  color: #ff4e50;
+  background-color: transparent;
+  border: 2px solid #ff4e50;
+}
