@@ -172,6 +172,9 @@ h4 + p {
     margin-bottom: 30px;
     font-size: 24px;
   }
+  .find-partner {
+    width: 226px;
+  }
   section {
     padding: 70px 128px 40px;
   }
@@ -195,6 +198,32 @@ h4 + p {
     order: 2;
   }
   .partners li:nth-child(2) {
+    margin-bottom: 0;
+  }
+  .other-partners {
+    width: 192px;
+  }
+}
+@media (min-width: 960px) {
+  .container {
+    width: 960px;
+    padding: 0 10px;
+  }
+  .banner-wrapper {
+    background-image: url(../img/banner_desktop.png);
+  }
+  header {
+    padding: 38px 0;
+  }
+  .page-heading {
+  padding: 108px 220px 232px;
+  }
+  section {
+    padding: 68px 0px 72px;
+  }
+  .partners li {
+    flex-basis: 220px;
+    flex-wrap: nowrap;
     margin-bottom: 0;
   }
 }
