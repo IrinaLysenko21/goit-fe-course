@@ -4,6 +4,9 @@
 body {
   text-align: center;
 }
+.conainer {
+  max-width: 320px;
+}
 .banner-wrapper {
   background-image: url(../img/banner_mobile.png);
   background-repeat: no-repeat;
@@ -190,17 +193,24 @@ h4 + p {
   .partner {
     margin-bottom: 58px;
   }
-  .partner:nth-child(2n) {
+  .partner:nth-of-type(even) {
     margin-bottom: 0;
   }
   .other-partners {
     width: 192px;
   }
 }
-
-
 @media (min-width: 960px) {
   .banner-wrapper {
     background-image: url(../img/banner_desktop.png);
+  }
+  .heading {
+    padding: 38px 0;
+  }
+  .partners {
+    padding: 68px 0px 72px;
+  }
+  .partner {
+    margin-bottom: 0;
   }
 }
