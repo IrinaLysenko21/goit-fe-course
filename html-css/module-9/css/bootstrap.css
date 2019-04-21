@@ -75,12 +75,12 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 p {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 abbr[title],
@@ -546,8 +546,8 @@ pre code {
 
 .container {
   width: 100%;
-  /* padding-right: 15px;
-  padding-left: 15px; */
+  padding-right: 10px;
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -556,7 +556,7 @@ pre code {
   .container {
     max-width: 540px;
   }
-55@media (min-width: 768px) {
+@media (min-width: 768px) {
   .container {
     max-width: 748px;
   }
@@ -576,8 +576,8 @@ pre code {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -587,8 +587,8 @@ pre code {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: -10px;
+  margin-left: -10px;
 }
 
 .no-gutters {
@@ -610,8 +610,8 @@ pre code {
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .col {
