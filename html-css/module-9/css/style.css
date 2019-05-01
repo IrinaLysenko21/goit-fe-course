@@ -149,6 +149,11 @@ h4 + p {
   border: 2px solid #ff4e50;
 }
 
+@media (min-width: 576px) {
+  .partners {
+    padding: 68px 10px 56px;
+  }
+}
 @media (min-width: 768px) {
   .banner-wrapper {
     background-image: url(../img/banner_tablet.png);

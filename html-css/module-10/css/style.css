@@ -1,0 +1,42 @@
+@import url("./normalize.css");
+@import url("./fonts.css");
+
+.banner-wrapper {
+  background:  linear-gradient(rgba(252, 227, 138, .9), rgba(243, 129, 129, .9)), url(../img/banner.jpg) no-repeat center;
+  background-size: cover;
+}
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+.link {
+  display: inline-block;
+  text-decoration: none;
+}
+.list {
+  list-style: none;
+}
+.button {
+  border: none;
+  background-color: transparent;
+}
+.logo {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+}
+.logo__link {
+  color: #fff;
+}
+.logo__transform {
+  text-transform: uppercase;
+}
+.icon-shopping-cart {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+.search {
+
+}
