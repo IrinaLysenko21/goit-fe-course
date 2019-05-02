@@ -30,6 +30,11 @@ header {
   background-color: transparent;
   cursor: pointer;
 }
+.icon-alignment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .logo {
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -42,15 +47,15 @@ header {
 .logo__transform {
   text-transform: uppercase;
 }
-.navigation-wrapper {
+.nav {
   display: flex;
   align-items: center;
 }
-.navigation__item {
+.nav__list-item {
   display: inline-block;
   margin-right: 55px;
 }
-.navigation__link {
+.nav__list-link {
   position: relative;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
@@ -58,7 +63,7 @@ header {
   color: #fff;
   transition: color 200ms linear;
 }
-.navigation__link::after {
+.nav__list-link::after {
   display: block;
   position: absolute;
   content: "";
@@ -72,39 +77,34 @@ header {
   transition-duration: 200ms;
   transition-timing-function: linear;
 }
-.navigation__item:hover .navigation__link {
+.nav__list-link:hover, .nav__list-link:focus {
   color: rgb(252, 227, 138);
 }
-.navigation__item:hover > .navigation__link::after {
+.nav__list-item:hover .nav__list-link::after {
   width: 100%;
   left: 0;
   right: 0;
   background-color: rgba(252, 227, 138, 1);
 }
-.shopping-cart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 40px;
+.nav__element {
+  width: 25px;
+  height: 25px;
   margin-right: 40px;
-  /* background: #000; */
 }
-.shopping-cart__icon {
+.nav__element:last-child {
+  margin-right: 0;
+}
+.nav__icon {
   width: 18px;
+  fill: rgb(255, 255, 255);
+  transition: fill 200ms linear;
+}
+.icon-shopping-cart {
   height: 15px;
-  fill: #fff;
 }
-.search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  /* background: #000; */
-}
-.search__icon {
-  width: 18px;
+.icon-search {
   height: 18px;
-  fill: #fff;
+}
+.nav__element:hover .nav__icon, .nav__element:focus .nav__icon {
+  fill: rgb(252, 227, 138);
 }
