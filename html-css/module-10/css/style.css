@@ -32,9 +32,6 @@
   margin: 0;
   padding: 0;
 }
-.title-description {
-  font-family: 'Kaushan Script', cursive;
-}
 .title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -108,15 +105,8 @@ header {
   margin-right: 0;
 }
 .nav__icon {
-  width: 18px;
   fill: rgb(255, 255, 255);
   transition: fill 200ms linear;
-}
-.icon-shopping-cart {
-  height: 15px;
-}
-.icon-search {
-  height: 18px;
 }
 .nav__element:hover .nav__icon, .nav__element:focus .nav__icon {
   fill: rgb(252, 227, 138);
@@ -127,6 +117,7 @@ header {
   text-align: center;
 }
 .page-heading__title-description {
+  font-family: 'Kaushan Script', cursive;
   margin-bottom: 22px;
   font-size: 72px;
   color: #fff;
@@ -153,6 +144,7 @@ header {
   padding: 44px 0;
 }
 .section__title-description {
+  font-family: 'Kaushan Script', cursive;
   margin-bottom: 18px;
   font-size: 24px;
   color: #333333;
@@ -204,8 +196,4 @@ header {
   top: 0;
   left: 0;
   width: 80px;
-}
-.icon-alarm {
-  width: 32px;
-  height: 30px;
 }
