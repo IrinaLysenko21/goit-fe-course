@@ -1,0 +1,23 @@
+%link {
+  display: inline-block;
+  text-decoration: none;
+}
+
+%list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+%button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+%content-alignment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
