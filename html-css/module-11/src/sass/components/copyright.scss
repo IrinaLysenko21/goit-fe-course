@@ -1,0 +1,10 @@
+.copyright {
+  @extend %text;
+  font-family: $title-font;
+  font-weight: 400;
+  color: #333333;
+
+  &__span {
+    color: #f38181;
+  }
+}

@@ -1,0 +1,31 @@
+.subscribe-form {
+  display: flex;
+  align-items: center;
+
+  &__input {
+    width: 204px;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #cccccc;
+
+    &::placeholder {
+      font-family: $paragraph-font;
+      font-style: italic;
+      color: #cccccc;
+    }
+  }
+
+  &__button {
+    @extend %button;
+    width: 150px;
+    height: 40px;
+    font-family: $title-font;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #95e1d3;
+  }
+}
+
+

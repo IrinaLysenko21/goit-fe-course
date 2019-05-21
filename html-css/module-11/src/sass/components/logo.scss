@@ -1,0 +1,16 @@
+.logo {
+  margin: 0;
+  font-family: $title-font;
+  font-size: 30px;
+  font-weight: 700;
+
+  &__link {
+    @extend %link;
+    color: #fff;
+  }
+
+  &__span {
+    text-transform: uppercase;
+  }
+}
+

@@ -1,0 +1,22 @@
+.social {
+  @extend %content-alignment;
+  @extend %link;
+  width: 56px;
+  height: 56px;
+  margin-right: 1px;
+  background-color: #fce38a;
+  transition: background-color 200ms linear;
+
+  &:hover {
+    background-color: #f38181;
+  }
+
+  &__icon {
+    fill: #f38181;
+    transition: fill 200ms linear;
+  }
+
+  &:hover .social__icon {
+    fill: #fff;
+  }
+}

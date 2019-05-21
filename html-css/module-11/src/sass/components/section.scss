@@ -1,0 +1,49 @@
+.section {
+  text-align: center;
+  padding: 44px 0;
+
+  &__title-description {
+    @extend %text;
+    font-family: $title-description-font;
+    margin-bottom: 18px;
+    font-size: 24px;
+    color: #333333;
+  }
+
+  &__title {
+    @extend %text;
+    @extend %title;
+    margin-bottom: 64px;
+    font-size: 30px;
+    color: #333333;
+
+    &::after {
+      display: block;
+      content: "";
+      width: 60px;
+      height: 3px;
+      margin: 0 auto;
+      margin-top: 40px;
+      background-color: #f38181;
+    }
+  }
+
+  &__paragraph {
+    @extend %text;
+    font-family: $paragraph-font;
+    font-size: 15px;
+    font-weight: 400;
+    color: #999999;
+  }
+
+  &__list-item-title {
+    @extend %text;
+    @extend %title;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+  }
+}
+
+

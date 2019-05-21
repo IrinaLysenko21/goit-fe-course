@@ -1,0 +1,72 @@
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  @extend %list;
+  &__list-item {
+    display: inline-block;
+    margin-right: 55px;
+
+    &:hover .nav__list-link::after {
+      width: 100%;
+      left: 0;
+      right: 0;
+      background-color: rgba(252, 227, 138, 1);
+    }
+  }
+
+  &__list-link {
+    position: relative;
+    @extend %link;
+    font-family: $title-font;
+    font-weight: 400;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    transition: color 200ms linear;
+
+    &::after {
+      display: block;
+      position: absolute;
+      content: "";
+      width: 0;
+      height: 3px;
+      left: 50%;
+      right: 50%;
+      margin-top: 10px;
+      background-color: rgba(252, 227, 138, 0);
+      transition-property: width, left, right, background-color;
+      transition-duration: 200ms;
+      transition-timing-function: linear;
+    }
+
+    &:hover, &:focus {
+      color: rgb(252, 227, 138);
+    }
+  }
+}
+
+.shopping-cart, .search {
+  width: 25px;
+  height: 25px;
+  margin-right: 40px;
+}
+.shopping-cart {
+  @extend %link;
+  @extend %content-alignment;
+}
+.search {
+  @extend %button;
+  @extend %content-alignment;
+  margin-right: 0;
+}
+.shopping-cart__icon, .search__icon {
+  fill: rgb(255, 255, 255);
+  transition: fill 200ms linear;
+}
+.shopping-cart:hover .shopping-cart__icon, .shopping-cart:focus .shopping-cart__icon,
+.search:hover .search__icon, .search:focus .search__icon {
+  fill: rgb(252, 227, 138);
+}
