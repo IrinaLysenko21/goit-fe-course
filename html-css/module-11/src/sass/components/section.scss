@@ -4,18 +4,17 @@
 
   &__title-description {
     @extend %text;
-    font-family: $title-description-font;
+    font-family: $font-title-description;
     margin-bottom: 18px;
     font-size: 24px;
-    color: #333333;
+    color: $color-title;
   }
 
   &__title {
-    @extend %text;
-    @extend %title;
+    @include text-title;
     margin-bottom: 64px;
     font-size: 30px;
-    color: #333333;
+    color: $color-title;
 
     &::after {
       display: block;
@@ -24,25 +23,24 @@
       height: 3px;
       margin: 0 auto;
       margin-top: 40px;
-      background-color: #f38181;
+      background-color: $color-main-1;
     }
   }
 
   &__paragraph {
     @extend %text;
-    font-family: $paragraph-font;
+    font-family: $font-paragraph;
     font-size: 15px;
     font-weight: 400;
-    color: #999999;
+    color: $color-paragraph;
   }
 
   &__list-item-title {
-    @extend %text;
-    @extend %title;
+    @include text-title;
     margin-bottom: 16px;
     font-size: 14px;
     font-weight: 400;
-    color: #333333;
+    color: $color-title;
   }
 }
 

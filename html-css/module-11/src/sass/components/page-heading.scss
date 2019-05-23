@@ -4,18 +4,17 @@
 
   &__title-description {
     @extend %text;
-    font-family: $title-description-font;
+    font-family: $font-title-description;
     margin-bottom: 22px;
     font-size: 72px;
-    color: #fff;
+    color: $color-main-5;
   }
 
   &__title {
-    @extend %text;
-    @extend %title;
+    @include text-title;
     margin-bottom: 112px;
     font-size: 150px;
     line-height: .95;
-    color: #fff;
+    color: $color-main-5;
   }
 }

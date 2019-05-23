@@ -1,22 +1,21 @@
 .social {
-  @extend %content-alignment;
-  @extend %link;
+  @include link-content-alignment;
   width: 56px;
   height: 56px;
   margin-right: 1px;
-  background-color: #fce38a;
+  background-color: $color-main-2;
   transition: background-color 200ms linear;
 
   &:hover {
-    background-color: #f38181;
+    background-color: $color-main-1;
   }
 
   &__icon {
-    fill: #f38181;
+    fill: $color-main-1;
     transition: fill 200ms linear;
   }
 
   &:hover .social__icon {
-    fill: #fff;
+    fill: $color-main-5;
   }
 }

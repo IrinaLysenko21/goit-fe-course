@@ -1,0 +1,14 @@
+@mixin text-title {
+  @extend %text;
+  @extend %title;
+}
+
+@mixin link-content-alignment {
+  @extend %link;
+  @extend %content-alignment;
+}
+
+@mixin button-content-alignment {
+  @extend %button;
+  @extend %content-alignment;
+}
