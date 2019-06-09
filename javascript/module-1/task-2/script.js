@@ -1,12 +1,15 @@
 'use strict'
 const credits = 23580;
 const pricePerDroid = 3000;
-let quantity = Number(prompt('Какое количество дроидов вы хотите приобрести?'));
+const userInput = prompt('Какое количество дроидов вы хотите приобрести?');
+const quantity = Number(userInput);
 const totalPrice = quantity * pricePerDroid;
 const balance = credits - quantity * pricePerDroid;
 
-if (quantity === 0) {
+if (userInput === null) {
   alert('Отменено пользователем!');
+} else if (userInput === '') {
+  alert('Введите количество!');
 } else {
 
   switch (true) {
@@ -22,28 +25,3 @@ if (quantity === 0) {
       alert('Введите число!');
   }
 }
-
-/*
- Без switch
-*/
-
-// if (quantity === 0) {
-//   alert('Отменено пользователем!');
-// } else if (totalPrice > credits) {
-//   alert('Недостаточно средств на счету!');
-// } else if (totalPrice <= credits) {
-//   alert(`Вы купили ${quantity} дроидов, на счету осталось ${balance} кредитов.`);
-// } else {
-//   alert('Введите число!');
-// }
-
-/*
-То же самое тернарным опреатором
-*/
-
-// message = quantity === 0 ? 'Отменено пользователем!':
-//           totalPrice > credits ? 'Недостаточно средств на счету!':
-//           totalPrice <= credits ? `Вы купили ${quantity} дроидов, на счету осталось ${balance} кредитов.`:
-//           'Введите число!';
-
-// alert(message);
