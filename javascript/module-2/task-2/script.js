@@ -12,6 +12,7 @@ if (userInput !== null) {
   } else if (!passwords.includes(userInput)) {
     do {
       warning = prompt(`Неверный пароль, у вас осталось ${attemptsLeft} попыток!`);
+      if (warning === null) break;
       if (!passwords.includes(warning)) {
         while (warning === '') {
           alert('Пароль не был введен!');
