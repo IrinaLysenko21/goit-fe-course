@@ -13,6 +13,12 @@ const isLoginValid = function(login) {
   return result;
 };
 
+/*
+ Тернарным оператором:
+ */
+// const isLoginValid = (login) => login.length >= 4 && login.length <= 16 ? true : false;
+
+
 const isLoginUnique = function(allLogins, login) {
   let result;
   if (!allLogins.includes(login)) {
@@ -22,6 +28,11 @@ const isLoginUnique = function(allLogins, login) {
   }
   return result;
 };
+
+/*
+ Тернарным оператором:
+ */
+// const isLoginUnique = (allLogins, login) => !allLogins.includes(login) ? true : false;
 
 const addLogin = function(allLogins, login) {
   let result = isLoginValid(login);
@@ -41,3 +52,4 @@ const addLogin = function(allLogins, login) {
 addLogin(logins, userInput);
 
 console.log(logins);
+
