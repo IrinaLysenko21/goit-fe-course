@@ -8,25 +8,12 @@ const userInput = prompt('Введите пароль');
 */
 
 const isLoginValid = function(login) {
-  let result;
-  if (login.length >= 4 && login.length <= 16) {
-    result = true;
-  } else {
-    result = false;
-  }
-  return result;
+  return login.length >= 4 && login.length <= 16;
 };
 
 const isLoginUnique = function(allLogins, login) {
-  let result;
-  if (!allLogins.includes(login)) {
-    result = true;
-  } else {
-    result = false;
-  }
-  return result;
+  return !allLogins.includes(login);
 };
-
 
 const addLogin = function(allLogins, login) {
   let result = isLoginValid(login);
