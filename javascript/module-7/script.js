@@ -62,7 +62,7 @@ const users = [
     age: 27,
   },
   {
-    guid: '150b00fb-dd82-427d-9faf-2879ea87c695',
+    id: '150b00fb-dd82-427d-9faf-2879ea87c695',
     name: 'Blackburn Dotson',
     email: 'blackburndotson@furnigeer.com',
     eyeColor: 'brown',
@@ -88,48 +88,74 @@ const users = [
 ];
 
 // Task 1
-const getAllNames = arr => arr.map(el => el.name);
+const getAllNames = users => users.map(user => user.name);
 
 console.log(getAllNames(users));
 
 // Task 2
-const getUsersByEyeColor = (arr, color) => arr.filter(el=> el.eyeColor === color);
+const getUsersByEyeColor = (users, color) => users.filter(user => user.eyeColor === color);
 
 console.log(getUsersByEyeColor(users, 'blue'));
 
 // Task 3
-const getUsersByGender = (arr, gender) => arr
-.filter(el => el.gender === gender)
-.map(el => el.name);
+const getUsersByGender = (users, gender) => users
+.filter(user => user.gender === gender)
+.map(user => user.name);
 
 console.log(getUsersByGender(users, 'male'));
 
 // Task 4
-const getInactiveUsers = arr => arr.filter(el => el.isActive === false);
+const getInactiveUsers = users => users.filter(user => user.isActive === false);
 
 console.log(getInactiveUsers(users));
 
 // Task 5
-const getUserByEmail = (arr, email) => arr.find(el => el.email === email);
+const getUserByEmail = (users, email) => users.find(user => user.email === email);
 
 console.log(getUserByEmail(users, 'shereeanthony@kog.com'));
 console.log(getUserByEmail(users, 'elmahead@omatom.com'));
 
 // Task 6
-const getUsersWithAge = (arr, min, max) => arr.filter(el => el.age >= min && el.age <= max);
+const getUsersWithAge = (users, min, max) => users.filter(user => user.age >= min && user.age <= max);
 
 console.log(getUsersWithAge(users, 20, 30));
 console.log(getUsersWithAge(users, 30, 40));
 
 //Task 7
-const getTotalBalance = arr => arr.reduce((acc, el) => acc + el.balance, 0);
+const getTotalBalance = users => users.reduce((acc, user) => acc + user.balance, 0);
 
 console.log(getTotalBalance(users));
 
 // Task 8
-const getUsersByFriend = (arr, name) => arr
-.filter(el => el.friends.includes(name))
-.map(el => el.name);
+const getUsersByFriend = (users, name) => users
+.filter(user => user.friends.includes(name))
+.map(user => user.name);
 
 console.log(getUsersByFriend(users, 'Briana Decker'));
 console.log(getUsersByFriend(users, 'Goldie Gentry'));
+
+// Additional task 1
+
+const getUniqueSkills = users => {
+
+  const allSkills = users.reduce((acc, user) => {
+    acc.push(...user.skills);
+    return acc;
+  }, []);
+
+  const uniqueSkillsList = {};
+
+  allSkills.forEach(skill => uniqueSkillsList[skill] = true);
+
+  return Object.keys(uniqueSkillsList).sort();
+};
+
+console.log(getUniqueSkills(users));
+
+// Additional task 2
+
+const getNamesSortedByFriendsCount = users => users
+.sort((a, b) => a.friends.length - b.friends.length)
+.map(user => user.name);
+
+console.log(getNamesSortedByFriendsCount(users));
