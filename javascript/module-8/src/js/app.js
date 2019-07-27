@@ -123,8 +123,6 @@ class Notepad {
 
 const notepad = new Notepad(initialNotes);
 
-const noteList = document.querySelector('.note-list');
-
 const createListItem = (note) => {
   const noteListItem = document.createElement('li');
   noteListItem.classList.add('note-list__item');
@@ -231,4 +229,12 @@ const createEditingSection = () => {
   return noteSection;
 };
 
-noteList.appendChild(createListItem(initialNotes[0]));
+const renderNoteList = (listRef, notes) => {
+  const listItems = notes.map(item => createListItem(item));
+
+  listRef.append(...listItems);
+};
+
+const noteList = document.querySelector('.note-list');
+
+renderNoteList(noteList, notepad.notes);
