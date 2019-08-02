@@ -56,14 +56,27 @@ class Notepad {
     this._notes = notes;
   }
 
-  static Priority = {
-    LOW: 0,
-    NORMAL: 1,
-    HIGH: 2,
-  };
+  static generateUniqueId() {
+    Math.random()
+      .toString(36)
+      .substring(2, 15) +
+    Math.random()
+      .toString(36)
+      .substring(2, 15);
+  }
 
   get notes() {
     return this._notes;
+  }
+
+  saveUserInput(userTitle, userBody) {
+    const newItem = {
+      id: Notepad.generateUniqueId(),
+      title: userTitle,
+      body: userBody,
+      priority: PRIORITY_TYPES.LOW,
+    }
+    return newItem;
   }
 
   saveNote(note) {
@@ -228,6 +241,34 @@ const renderNoteList = (listRef, notes) => {
   listRef.append(...listItems);
 };
 
-const noteList = document.querySelector('.note-list');
+const addListItem = (listRef, note) => {
+  const listItem = createListItem(note);
+  listRef.appendChild(listItem);
+}
 
-renderNoteList(noteList, notepad.notes);
+const refs = {
+  noteList: document.querySelector('.note-list'),
+  editor: document.querySelector('.note-editor'),
+  titleInput: document.querySelector('input.note-editor__input'),
+  bodyInput: document.querySelector('textarea.note-editor__input'),
+};
+
+renderNoteList(refs.noteList, notepad.notes);
+
+const handleEditorSubmit = (e) => {
+  e.preventDefault();
+  refs.titleInput.value.trim() === '' || refs.bodyInput.value.trim() === '' ? alert('Необходимо заполнить все поля!') : null;
+
+  const noteTitle = refs.titleInput.value.trim();
+  const noteBody = refs.bodyInput.value.trim();
+  const note = notepad.saveUserInput(noteTitle, noteBody);
+
+  addListItem(refs.noteList, note);
+  e.currentTarget.reset();
+}
+
+
+
+refs.editor.addEventListener('submit', handleEditorSubmit);
+
+
