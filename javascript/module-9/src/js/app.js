@@ -112,14 +112,18 @@ class Notepad {
     return noteToChangePriority;
   }
 
-  filterNotesByQuery(query) {
-    let searchResult = [];
-    for (let key of this._notes) {
-      if (key.title.toLowerCase().includes(query.toLowerCase()) || key.body.toLowerCase().includes(query.toLowerCase)) {
-        searchResult.push(key);
-      }
-    }
-    return searchResult;
+  filterNotesByQuery(query = '') {
+    console.log(query);
+
+    return this._notes.filter(note => note.title.toLowerCase().includes(query.toLowerCase()) ||
+    note.body.toLowerCase().includes(query.toLowerCase()));
+    // let searchResult = [];
+    // for (let key of this._notes) {
+    //   if (key.title.toLowerCase().includes(query.toLowerCase()) || key.body.toLowerCase().includes(query.toLowerCase)) {
+    //     searchResult.push(key);
+    //   }
+    // }
+    // return searchResult;
   }
 
   filterNotesByPriority(priority) {
@@ -237,6 +241,7 @@ const createListItem = (note) => {
 const renderNoteList = (listRef, notes) => {
   const listItems = notes.map(item => createListItem(item));
 
+  listRef.innerHTML = '';
   listRef.append(...listItems);
 };
 
@@ -253,8 +258,9 @@ const removeListItem = element => {
 }
 
 const refs = {
-  noteList: document.querySelector('.note-list'),
+  searchInput: document.querySelector('.search-form__input'),
   editor: document.querySelector('.note-editor'),
+  noteList: document.querySelector('.note-list'),
   titleInput: document.querySelector('input.note-editor__input'),
   bodyInput: document.querySelector('textarea.note-editor__input'),
 };
@@ -263,8 +269,9 @@ renderNoteList(refs.noteList, notepad.notes);
 
 const handleEditorSubmit = (e) => {
   e.preventDefault();
-  refs.titleInput.value.trim() === '' || refs.bodyInput.value.trim() === '' ? alert('Необходимо заполнить все поля!') : null;
-
+  if (refs.titleInput.value.trim() === '' || refs.bodyInput.value.trim() === '') {
+    return alert('Необходимо заполнить все поля!');
+  }
   const noteTitle = refs.titleInput.value;
   const noteBody = refs.bodyInput.value;
   const note = notepad.saveUserInput(noteTitle, noteBody);
@@ -296,9 +303,11 @@ const handleNoteClick = ({target}) => {
   }
 };
 
-
-
+const handleFilterInput = ({target}) => {
+  const filteredNotes = notepad.filterNotesByQuery(target.value);
+  renderNoteList(refs.noteList, filteredNotes);
+};
 
 refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
-
+refs.searchInput.addEventListener('input', handleFilterInput);
