@@ -75,8 +75,7 @@ class Notepad {
       body: userBody,
       priority: PRIORITY_TYPES.LOW,
     }
-    this._notes.push(newItem);
-    return newItem;
+    return this.saveNote(newItem);
   }
 
   saveNote(note) {
@@ -85,14 +84,7 @@ class Notepad {
   }
 
   findNoteById(id) {
-    let noteToFind = {};
-    for (let key of this._notes) {
-      if (key.id === id) {
-        noteToFind = key;
-        return noteToFind;
-      }
-    }
-    return undefined;
+    return this._notes.find(note => note.id === id);
   }
 
   deleteNote(id) {
@@ -113,17 +105,8 @@ class Notepad {
   }
 
   filterNotesByQuery(query = '') {
-    console.log(query);
-
     return this._notes.filter(note => note.title.toLowerCase().includes(query.toLowerCase()) ||
     note.body.toLowerCase().includes(query.toLowerCase()));
-    // let searchResult = [];
-    // for (let key of this._notes) {
-    //   if (key.title.toLowerCase().includes(query.toLowerCase()) || key.body.toLowerCase().includes(query.toLowerCase)) {
-    //     searchResult.push(key);
-    //   }
-    // }
-    // return searchResult;
   }
 
   filterNotesByPriority(priority) {
@@ -240,7 +223,6 @@ const createListItem = (note) => {
 
 const renderNoteList = (listRef, notes) => {
   const listItems = notes.map(item => createListItem(item));
-
   listRef.innerHTML = '';
   listRef.append(...listItems);
 };
