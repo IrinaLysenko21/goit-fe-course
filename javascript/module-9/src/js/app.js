@@ -56,14 +56,13 @@ class Notepad {
     this._notes = notes;
   }
 
-  static generateUniqueId() {
+  static generateUniqueId = () =>
     Math.random()
       .toString(36)
       .substring(2, 15) +
     Math.random()
       .toString(36)
       .substring(2, 15);
-  }
 
   get notes() {
     return this._notes;
@@ -76,6 +75,7 @@ class Notepad {
       body: userBody,
       priority: PRIORITY_TYPES.LOW,
     }
+    this._notes.push(newItem);
     return newItem;
   }
 
@@ -96,8 +96,7 @@ class Notepad {
   }
 
   deleteNote(id) {
-    let noteToDelete = this.findNoteById(id);
-    this._notes.splice(this._notes.indexOf(noteToDelete), 1);
+    this._notes = this._notes.filter(note => note.id !== id);
   }
 
   updateNoteContent(id, updatedContent) {
@@ -246,6 +245,13 @@ const addListItem = (listRef, note) => {
   listRef.appendChild(listItem);
 }
 
+const removeListItem = element => {
+  const parentListItem = element.closest('.note-list__item');
+  const id = parentListItem.dataset.id;
+  notepad.deleteNote(id);
+  parentListItem.remove();
+}
+
 const refs = {
   noteList: document.querySelector('.note-list'),
   editor: document.querySelector('.note-editor'),
@@ -259,16 +265,40 @@ const handleEditorSubmit = (e) => {
   e.preventDefault();
   refs.titleInput.value.trim() === '' || refs.bodyInput.value.trim() === '' ? alert('Необходимо заполнить все поля!') : null;
 
-  const noteTitle = refs.titleInput.value.trim();
-  const noteBody = refs.bodyInput.value.trim();
+  const noteTitle = refs.titleInput.value;
+  const noteBody = refs.bodyInput.value;
   const note = notepad.saveUserInput(noteTitle, noteBody);
 
   addListItem(refs.noteList, note);
   e.currentTarget.reset();
 }
 
+const handleNoteClick = ({target}) => {
+  if (target.nodeName !== 'I') return;
+  const action = target.closest('button').dataset.action;
+
+  switch (action) {
+    case NOTE_ACTIONS.DELETE:
+      removeListItem(target);
+      break;
+
+    case NOTE_ACTIONS.EDIT:
+      // coming soon...
+      break;
+
+    case NOTE_ACTIONS.DECREASE_PRIORITY:
+      // coming soon...
+      break;
+
+    case NOTE_ACTIONS.INCREASE_PRIORITY:
+      // coming soon...
+      break;
+  }
+};
+
+
 
 
 refs.editor.addEventListener('submit', handleEditorSubmit);
-
+refs.noteList.addEventListener('click', handleNoteClick);
 
