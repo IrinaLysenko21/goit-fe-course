@@ -1,14 +1,7 @@
 import {PRIORITY_TYPES} from './constants';
+import shortid from 'shortid';
 
 export default class Notepad {
-  static generateUniqueId = () =>
-  Math.random()
-    .toString(36)
-    .substring(2, 15) +
-  Math.random()
-    .toString(36)
-    .substring(2, 15);
-
   constructor(notes) {
     this._notes = notes;
   }
@@ -19,7 +12,7 @@ export default class Notepad {
 
   saveUserInput(userTitle, userBody) {
     const newItem = {
-      id: Notepad.generateUniqueId(),
+      id: shortid.generate(),
       title: userTitle,
       body: userBody,
       priority: PRIORITY_TYPES.LOW,
