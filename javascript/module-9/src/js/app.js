@@ -128,7 +128,7 @@ const createElement = (tag, className) => {
   return createElement;
 };
 
-const createNoteContent = (note) => {
+const createNoteContent = note => {
   const noteContent = createElement('div', 'note__content');
 
   const noteTitle = createElement('h2', 'note__title');
@@ -143,7 +143,7 @@ const createNoteContent = (note) => {
   return noteContent;
 };
 
-const createPrioritySection = () => {
+const createPrioritySection = note => {
   const noteSection = createElement('section', 'note__section');
 
   const decreasePriorityButton = createElement('button', 'action');
@@ -161,7 +161,7 @@ const createPrioritySection = () => {
   increasePriorityIcon.textContent = ICON_TYPES.ARROW_UP;
 
   const notePriority = createElement('span', 'note__priority');
-  notePriority.textContent = PRIORITY_TYPES.LOW;
+  notePriority.textContent = note.priority;
 
   decreasePriorityButton.appendChild(decreasePriorityIcon);
   increasePriorityButton.appendChild(increasePriorityIcon);
@@ -199,16 +199,16 @@ const createEditingSection = () => {
   return noteSection;
 };
 
-const createNoteFooter = () => {
+const createNoteFooter = note => {
   const noteFooter = createElement('footer', 'note__footer');
 
-  noteFooter.appendChild(createPrioritySection());
+  noteFooter.appendChild(createPrioritySection(note));
   noteFooter.appendChild(createEditingSection());
 
   return noteFooter;
 };
 
-const createListItem = (note) => {
+const createListItem = note => {
   const noteListItem = createElement('li', 'note-list__item');
   noteListItem.setAttribute('data-id', note.id);
 
@@ -249,17 +249,20 @@ const refs = {
 
 renderNoteList(refs.noteList, notepad.notes);
 
-const handleEditorSubmit = (e) => {
-  e.preventDefault();
-  if (refs.titleInput.value.trim() === '' || refs.bodyInput.value.trim() === '') {
+const handleEditorSubmit = evt => {
+  evt.preventDefault();
+  const [input, textarea] = evt.target.elements;
+
+  if (input.value.trim() === '' || textarea.value.trim() === '') {
     return alert('Необходимо заполнить все поля!');
   }
-  const noteTitle = refs.titleInput.value;
-  const noteBody = refs.bodyInput.value;
+
+  const noteTitle = input.value;
+  const noteBody = textarea.value;
   const note = notepad.saveUserInput(noteTitle, noteBody);
 
   addListItem(refs.noteList, note);
-  e.currentTarget.reset();
+  evt.currentTarget.reset();
 }
 
 const handleNoteClick = ({target}) => {
