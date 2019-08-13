@@ -24,7 +24,7 @@ const createNoteContent = (note) => {
   return noteContent;
 };
 
-const createPrioritySection = () => {
+const createPrioritySection = (note) => {
   const noteSection = createElement('section', 'note__section');
 
   const decreasePriorityButton = createElement('button', 'action');
@@ -42,7 +42,7 @@ const createPrioritySection = () => {
   increasePriorityIcon.textContent = ICON_TYPES.ARROW_UP;
 
   const notePriority = createElement('span', 'note__priority');
-  notePriority.textContent = PRIORITY_TYPES.LOW;
+  notePriority.textContent = note.priority;
 
   decreasePriorityButton.appendChild(decreasePriorityIcon);
   increasePriorityButton.appendChild(increasePriorityIcon);
@@ -80,10 +80,10 @@ const createEditingSection = () => {
   return noteSection;
 };
 
-const createNoteFooter = () => {
+const createNoteFooter = (note) => {
   const noteFooter = createElement('footer', 'note__footer');
 
-  noteFooter.appendChild(createPrioritySection());
+  noteFooter.appendChild(createPrioritySection(note));
   noteFooter.appendChild(createEditingSection());
 
   return noteFooter;
@@ -127,4 +127,3 @@ export const getRefs = () => ({
   titleInput: document.querySelector('input.note-editor__input'),
   bodyInput: document.querySelector('textarea.note-editor__input'),
 });
-
