@@ -16,7 +16,7 @@
     "autoprefixer": "^9.4.4",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
-    "css-loader": "^2.1.0",
+    "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "handlebars-loader": "^1.7.1",
@@ -37,6 +37,8 @@
   },
   "dependencies": {
     "handlebars": "^4.1.2",
+    "micromodal": "^0.4.0",
+    "notyf": "^3.0.4",
     "shortid": "^2.2.14"
   }
 }

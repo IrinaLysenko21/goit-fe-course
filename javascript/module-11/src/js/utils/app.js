@@ -1,28 +1,38 @@
+import Micromodal from 'micromodal';
 import {NOTE_ACTIONS} from './constants';
 import initialNotes from '../../assets/notes.json';
 import Notepad from './notepad';
-import {renderNoteList, addListItem, removeListItem, getRefs} from './view';
-
+import {renderNoteList, addListItem, findParentListItem, removeListItem, getRefs} from './view';
+import successMsg from '../components/Success/Success';
+import errorMsg from '../components/Error/Error'
 
 const notepad = new Notepad(initialNotes);
 const refs = getRefs();
 
 renderNoteList(refs.noteList, notepad.notes);
 
+const handleOpenEditorModal = () => {
+  Micromodal.show('note-editor-modal');
+};
+
 const handleEditorSubmit = (evt) => {
   evt.preventDefault();
+
   const [input, textarea] = evt.target.elements;
 
   if (input.value.trim() === '' || textarea.value.trim() === '') {
-    return alert('Необходимо заполнить все поля!');
+    return errorMsg('Необходимо заполнить все поля!');
   }
 
   const noteTitle = input.value;
   const noteBody = textarea.value;
+
   const note = notepad.saveUserInput(noteTitle, noteBody);
 
   addListItem(refs.noteList, note);
   evt.currentTarget.reset();
+  successMsg('Заметка успешно сохранена!');
+  Micromodal.close('note-editor-modal');
 }
 
 const handleNoteClick = ({target}) => {
@@ -31,7 +41,10 @@ const handleNoteClick = ({target}) => {
 
   switch (action) {
     case NOTE_ACTIONS.DELETE:
-      removeListItem(target);
+      const listItemToDelete = findParentListItem(target);
+      notepad.deleteNote(listItemToDelete.dataset.id);
+      removeListItem(listItemToDelete);
+      successMsg('Заметка успешно удалена!');
       break;
 
     case NOTE_ACTIONS.EDIT:
@@ -53,6 +66,9 @@ const handleFilterInput = ({target}) => {
   renderNoteList(refs.noteList, filteredNotes);
 };
 
+
 refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);
+refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
+

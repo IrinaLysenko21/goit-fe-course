@@ -1,7 +1,4 @@
 import noteTemplate from '../../templates/note.hbs';
-import Notepad from './notepad';
-import initialNotes from '../../assets/notes.json';
-const notepad = new Notepad(initialNotes);
 
 const createListItemMarkup = note => {
   return noteTemplate(note);
@@ -17,21 +14,24 @@ export const renderNoteList = (listRef, notes) => {
 };
 
 export const addListItem = (listRef, note) => {
-  const listItem = createListItem(note);
-  listRef.appendChild(listItem);
+  const listItem = createListItemMarkup(note);
+  listRef.insertAdjacentHTML('beforeend', listItem);
+
 };
 
-export const removeListItem = element => {
+export const findParentListItem = element => {
   const parentListItem = element.closest('.note-list__item');
-  const id = parentListItem.dataset.id;
-  notepad.deleteNote(id);
-  parentListItem.remove();
+
+  return parentListItem;
+}
+
+export const removeListItem = listItem => {
+  listItem.remove();
 };
 
 export const getRefs = () => ({
   searchInput: document.querySelector('.search-form__input'),
   editor: document.querySelector('.note-editor'),
   noteList: document.querySelector('.note-list'),
-  titleInput: document.querySelector('input.note-editor__input'),
-  bodyInput: document.querySelector('textarea.note-editor__input'),
+  openEditorModalBtn: document.querySelector('button[data-action="open-editor"]'),
 });

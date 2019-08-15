@@ -39,7 +39,11 @@ module.exports = ({ mode = 'production' }) =>
               }
             ]
           },
-          { test: /\.hbs$/, loader: "handlebars-loader" }
+          { test: /\.hbs$/, loader: "handlebars-loader" },
+          {
+            test:/\.(css|min.css)$/,
+            use:['style-loader','css-loader']
+        }
         ]
       },
       plugins: [
