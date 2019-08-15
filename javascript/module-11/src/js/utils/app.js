@@ -26,12 +26,11 @@ const handleEditorSubmit = (evt) => {
 
   const noteTitle = input.value;
   const noteBody = textarea.value;
-
   const note = notepad.saveUserInput(noteTitle, noteBody);
 
   addListItem(refs.noteList, note);
+  successMsg('Заметка успешно добавлена!');
   evt.currentTarget.reset();
-  successMsg('Заметка успешно сохранена!');
   Micromodal.close('note-editor-modal');
 }
 
