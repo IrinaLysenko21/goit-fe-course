@@ -4,7 +4,7 @@ const createListItemMarkup = note => {
   return noteTemplate(note);
 };
 
-const createItemsListMarkup = (notes) => {
+const createItemsListMarkup = notes => {
  return notes.map(note => createListItemMarkup(note)).join('');
 };
 
