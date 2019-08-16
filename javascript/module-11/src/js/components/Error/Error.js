@@ -3,7 +3,7 @@ import 'notyf/notyf.min.css';
 
 const notyf = new Notyf();
 
-const errorMsg = (msg) => {
+const errorMsg = msg => {
   notyf.error(msg);
 };
 

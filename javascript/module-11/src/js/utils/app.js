@@ -13,9 +13,10 @@ renderNoteList(refs.noteList, notepad.notes);
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
+  refs.editor.reset();
 };
 
-const handleEditorSubmit = (evt) => {
+const handleEditorSubmit = evt => {
   evt.preventDefault();
 
   const [input, textarea] = evt.target.elements;
@@ -30,6 +31,7 @@ const handleEditorSubmit = (evt) => {
 
   addListItem(refs.noteList, note);
   successMsg('Заметка успешно добавлена!');
+
   evt.currentTarget.reset();
   Micromodal.close('note-editor-modal');
 }
@@ -65,9 +67,7 @@ const handleFilterInput = ({target}) => {
   renderNoteList(refs.noteList, filteredNotes);
 };
 
-
+refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
 refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);
-refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
-
