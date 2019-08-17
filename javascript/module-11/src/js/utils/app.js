@@ -13,7 +13,6 @@ renderNoteList(refs.noteList, notepad.notes);
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
-  refs.editor.reset();
 };
 
 const handleEditorSubmit = evt => {
