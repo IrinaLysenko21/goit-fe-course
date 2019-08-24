@@ -2,14 +2,14 @@ import Micromodal from 'micromodal';
 import {NOTE_ACTIONS} from './constants';
 import initialNotes from '../../assets/notes.json';
 import Notepad from './notepad';
-import {renderNoteList, addListItem, findParentListItem, removeListItem, getRefs} from './view';
+import {renderNotesList, addListItem, findParentListItem, removeListItem, getRefs} from './view';
 import successMsg from '../components/Success/Success';
 import errorMsg from '../components/Error/Error'
 
 const notepad = new Notepad(initialNotes);
 const refs = getRefs();
 
-renderNoteList(refs.noteList, notepad.notes);
+renderNotesList(refs.noteList, notepad.notes);
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
@@ -63,7 +63,7 @@ const handleNoteClick = ({target}) => {
 
 const handleFilterInput = ({target}) => {
   const filteredNotes = notepad.filterNotesByQuery(target.value);
-  renderNoteList(refs.noteList, filteredNotes);
+  renderNotesList(refs.noteList, filteredNotes);
 };
 
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);

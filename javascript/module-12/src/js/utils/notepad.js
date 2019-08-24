@@ -1,5 +1,6 @@
-import {PRIORITY_TYPES} from './constants';
 import shortid from 'shortid';
+import {PRIORITY_TYPES} from './constants';
+import {load, save} from './storage';
 
 export default class Notepad {
   constructor(notes) {
@@ -22,6 +23,7 @@ export default class Notepad {
 
   saveNote(note) {
     this._notes.push(note);
+    save('notes', this._notes);
     return note;
   }
 
@@ -30,7 +32,16 @@ export default class Notepad {
   }
 
   deleteNote(id) {
+    const savedNotes = load('notes');
+
+    if (savedNotes) {
+      this._notes = savedNotes.filter(note => note.id !== id);
+      save('notes', this._notes);
+      return this._notes;
+    }
+
     this._notes = this._notes.filter(note => note.id !== id);
+    save('notes', this._notes);
   }
 
   updateNoteContent(id, updatedContent) {
