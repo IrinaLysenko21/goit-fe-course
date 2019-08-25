@@ -2,7 +2,7 @@ import Micromodal from 'micromodal';
 import {NOTE_ACTIONS} from './constants';
 import initialNotes from '../../assets/notes.json';
 import Notepad from './notepad';
-import {renderNotesList, addListItem, findParentListItem, removeListItem, getRefs} from './view';
+import {renderNotesList, renderFilteredNotes, addListItem, findParentListItem, removeListItem, getRefs} from './view';
 import successMsg from '../components/Success/Success';
 import errorMsg from '../components/Error/Error'
 
@@ -13,6 +13,7 @@ renderNotesList(refs.noteList, notepad.notes);
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
+  
 };
 
 const handleEditorSubmit = evt => {
@@ -26,10 +27,10 @@ const handleEditorSubmit = evt => {
 
   const noteTitle = input.value;
   const noteBody = textarea.value;
-  const note = notepad.saveUserInput(noteTitle, noteBody);
-
-  addListItem(refs.noteList, note);
-  successMsg('Заметка успешно добавлена!');
+  notepad.saveUserInput(noteTitle, noteBody)
+  .then(note => addListItem(refs.noteList, note))
+  .then(successMsg('Заметка успешно добавлена!'))
+  .catch(console.error());
 
   evt.currentTarget.reset();
   Micromodal.close('note-editor-modal');
@@ -42,7 +43,7 @@ const handleNoteClick = ({target}) => {
   switch (action) {
     case NOTE_ACTIONS.DELETE:
       const listItemToDelete = findParentListItem(target);
-      notepad.deleteNote(listItemToDelete.dataset.id);
+      notepad.deleteNote(listItemToDelete.dataset.id).catch(console.error());
       removeListItem(listItemToDelete);
       successMsg('Заметка успешно удалена!');
       break;
@@ -62,8 +63,9 @@ const handleNoteClick = ({target}) => {
 };
 
 const handleFilterInput = ({target}) => {
-  const filteredNotes = notepad.filterNotesByQuery(target.value);
-  renderNotesList(refs.noteList, filteredNotes);
+  notepad.filterNotesByQuery(target.value)
+  .then(filteredNotes => renderFilteredNotes(refs.noteList, filteredNotes))
+  .catch(console.error());
 };
 
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);

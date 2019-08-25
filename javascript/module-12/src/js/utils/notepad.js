@@ -1,6 +1,6 @@
 import shortid from 'shortid';
 import {PRIORITY_TYPES} from './constants';
-import {load, save} from './storage';
+import storage from './storage';
 
 export default class Notepad {
   constructor(notes) {
@@ -11,62 +11,115 @@ export default class Notepad {
     return this._notes;
   }
 
-  saveUserInput(userTitle, userBody) {
-    const newItem = {
-      id: shortid.generate(),
-      title: userTitle,
-      body: userBody,
-      priority: PRIORITY_TYPES.LOW,
+  checkingStorage() {
+    const savedNotes = storage.load('notes');
+
+    if (savedNotes) {
+      this._notes = savedNotes;
     }
-    return this.saveNote(newItem);
+
+    return this._notes;
+  }
+
+  saveUserInput(userTitle, userBody) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const newItem = {
+          id: shortid.generate(),
+          title: userTitle,
+          body: userBody,
+          priority: PRIORITY_TYPES.LOW,
+        }
+
+        this.saveNote(newItem).catch(console.error());
+
+        resolve(newItem);
+        reject('Error');
+      }, 300);
+    });
   }
 
   saveNote(note) {
-    this._notes.push(note);
-    save('notes', this._notes);
-    return note;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.checkingStorage().push(note);
+        storage.save('notes', this._notes);
+
+        resolve(note);
+        reject('Error');
+      }, 300);
+    });
   }
 
   findNoteById(id) {
-    return this._notes.find(note => note.id === id);
+    return this.checkingStorage().find(note => note.id === id);
   }
 
   deleteNote(id) {
-    const savedNotes = load('notes');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const updatedNotes = this.checkingStorage().filter(note => note.id !== id);
+        storage.save('notes', updatedNotes);
 
-    if (savedNotes) {
-      this._notes = savedNotes.filter(note => note.id !== id);
-      save('notes', this._notes);
-      return this._notes;
-    }
+        resolve(updatedNotes);
+        reject('Error');
+      }, 300);
+    });
 
-    this._notes = this._notes.filter(note => note.id !== id);
-    save('notes', this._notes);
   }
 
   updateNoteContent(id, updatedContent) {
-    const index = this._notes.indexOf(this.findNoteById(id));
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          const elem = this.findNoteById(id);
 
-    if (this._notes[index]) {
-      return this._notes[index] = {...this._notes[index], ...updatedContent};
-    }
+          if(elem) {
+          Object.assign(elem, updatedContent);
+          storage.save('notes', this._notes);
+          resolve(elem);
+          }
+
+          reject('Error');
+      }, 300);
+    });
   }
 
   updateNotePriority(id, priority) {
-    let noteToChangePriority = this.findNoteById(id);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let noteToChangePriority = this.findNoteById(id);
 
-    if (noteToChangePriority) {
-    noteToChangePriority.priority = priority;
-    return noteToChangePriority;
-    }
+        if (noteToChangePriority) {
+        noteToChangePriority.priority = priority;
+        storage.save('notes', this._notes);
+        resolve(noteToChangePriority);
+        }
+
+        reject('Error');
+      }, 300);
+    });
   }
 
   filterNotesByQuery(query = '') {
-    return this._notes.filter(note => note.title.toLowerCase().includes(query.toLowerCase()) ||
-    note.body.toLowerCase().includes(query.toLowerCase()));
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const searchResult = this.checkingStorage().filter(note => note.title.toLowerCase().includes(query.toLowerCase()) ||
+        note.body.toLowerCase().includes(query.toLowerCase()));
+
+        resolve(searchResult);
+        reject('Error');
+      }, 300);
+    });
   }
 
   filterNotesByPriority(priority) {
-    return this._notes.filter(note => note.priority === priority);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const searchResult = this.checkingStorage().filter(note => note.priority === priority);
+
+        resolve(searchResult);
+        reject('Error');
+      }, 300);
+    })
   }
 }

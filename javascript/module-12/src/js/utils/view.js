@@ -1,5 +1,5 @@
 import noteTemplate from '../../templates/note.hbs';
-import {load} from './storage';
+import storage from './storage';
 
 const createListItemMarkup = note => {
   return noteTemplate(note);
@@ -11,12 +11,17 @@ const createItemsListMarkup = notes => {
 
 export const renderNotesList = (listRef, notes) => {
   listRef.innerHTML = '';
-  const savedNotes = load('notes');
+  const savedNotes = storage.load('notes');
 
   if (savedNotes) {
     return listRef.insertAdjacentHTML('beforeend', createItemsListMarkup(savedNotes))
   }
 
+  listRef.insertAdjacentHTML('beforeend', createItemsListMarkup(notes));
+};
+
+export const renderFilteredNotes = (listRef, notes) => {
+  listRef.innerHTML = '';
   listRef.insertAdjacentHTML('beforeend', createItemsListMarkup(notes));
 };
 
