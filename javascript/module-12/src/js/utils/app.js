@@ -47,8 +47,8 @@ const handleEditorSubmit = evt => {
 
   notepad.saveUserInput(noteTitle, noteBody)
   .then(note => view.addListItem(refs.noteList, note))
-  .then(successMsg('Заметка успешно добавлена!'))
   .catch(console.error());
+  successMsg('Заметка успешно добавлена!');
 
   storage.remove('noteTitle');
   storage.remove('noteBody');
@@ -64,10 +64,9 @@ const handleNoteClick = ({target}) => {
   switch (action) {
     case NOTE_ACTIONS.DELETE:
       const listItemToDelete = view.findParentListItem(target);
-      notepad.deleteNote(listItemToDelete.dataset.id)
-      .then(view.removeListItem(listItemToDelete))
-      .then(successMsg('Заметка успешно удалена!'))
-      .catch(console.error());
+      notepad.deleteNote(listItemToDelete.dataset.id).catch(console.error());
+      view.removeListItem(listItemToDelete);
+      successMsg('Заметка успешно удалена!');
       break;
 
     case NOTE_ACTIONS.EDIT:
