@@ -58,25 +58,27 @@ export default class Notepad {
   deleteNote(id) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const updatedNotes = this.checkingStorage().filter(note => note.id !== id);
-        storage.save('notes', updatedNotes);
+        const noteToDelete = this.findNoteById(id);
 
-        resolve(updatedNotes);
+        if (noteToDelete) {
+          storage.save('notes', this.checkingStorage().filter(note => note.id !== id));
+          resolve(noteToDelete);
+        }
+
         reject('Error');
       }, 300);
     });
-
   }
 
   updateNoteContent(id, updatedContent) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-          const elem = this.findNoteById(id);
+          const noteToUpdate = this.findNoteById(id);
 
-          if(elem) {
-          Object.assign(elem, updatedContent);
-          storage.save('notes', this._notes);
-          resolve(elem);
+          if (noteToUpdate) {
+            Object.assign(noteToUpdate, updatedContent);
+            storage.save('notes', this._notes);
+            resolve(noteToUpdate);
           }
 
           reject('Error');
@@ -87,12 +89,12 @@ export default class Notepad {
   updateNotePriority(id, priority) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let noteToChangePriority = this.findNoteById(id);
+        const noteToChangePriority = this.findNoteById(id);
 
         if (noteToChangePriority) {
-        noteToChangePriority.priority = priority;
-        storage.save('notes', this._notes);
-        resolve(noteToChangePriority);
+          noteToChangePriority.priority = priority;
+          storage.save('notes', this._notes);
+          resolve(noteToChangePriority);
         }
 
         reject('Error');

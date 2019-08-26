@@ -2,15 +2,15 @@ import Micromodal from 'micromodal';
 import {NOTE_ACTIONS} from './constants';
 import initialNotes from '../../assets/notes.json';
 import Notepad from './notepad';
-import {renderNotesList, renderFilteredNotes, addListItem, findParentListItem, removeListItem, getRefs} from './view';
+import view from './view';
 import successMsg from '../components/Success/Success';
 import errorMsg from '../components/Error/Error'
 import storage from './storage';
 
 const notepad = new Notepad(initialNotes);
-const refs = getRefs();
+const refs = view.getRefs();
 
-renderNotesList(refs.noteList, notepad.notes);
+view.renderNotesList(refs.noteList, notepad.notes);
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
@@ -26,7 +26,7 @@ const handleOpenEditorModal = () => {
   }
 };
 
-const handleEditorInputSaving = (evt) => {
+const handleEditorInputSaving = evt => {
   const [input, textarea] = evt.currentTarget.elements;
 
   storage.save('noteTitle', input.value);
@@ -46,7 +46,7 @@ const handleEditorSubmit = evt => {
   const noteBody = textarea.value;
 
   notepad.saveUserInput(noteTitle, noteBody)
-  .then(note => addListItem(refs.noteList, note))
+  .then(note => view.addListItem(refs.noteList, note))
   .then(successMsg('Заметка успешно добавлена!'))
   .catch(console.error());
 
@@ -63,10 +63,11 @@ const handleNoteClick = ({target}) => {
 
   switch (action) {
     case NOTE_ACTIONS.DELETE:
-      const listItemToDelete = findParentListItem(target);
-      notepad.deleteNote(listItemToDelete.dataset.id).catch(console.error());
-      removeListItem(listItemToDelete);
-      successMsg('Заметка успешно удалена!');
+      const listItemToDelete = view.findParentListItem(target);
+      notepad.deleteNote(listItemToDelete.dataset.id)
+      .then(view.removeListItem(listItemToDelete))
+      .then(successMsg('Заметка успешно удалена!'))
+      .catch(console.error());
       break;
 
     case NOTE_ACTIONS.EDIT:
@@ -85,12 +86,12 @@ const handleNoteClick = ({target}) => {
 
 const handleFilterInput = ({target}) => {
   notepad.filterNotesByQuery(target.value)
-  .then(filteredNotes => renderFilteredNotes(refs.noteList, filteredNotes))
+  .then(filteredNotes => view.renderFilteredNotes(refs.noteList, filteredNotes))
   .catch(console.error());
 };
 
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
-refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.editor.addEventListener('keyup', handleEditorInputSaving);
+refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);
