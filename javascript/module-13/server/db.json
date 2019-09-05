@@ -1,0 +1,35 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "JavaScript essentials",
+      "body": "Get comfortable with all basic JavaScript concepts: variables, loops, arrays, branching, objects, functions, scopes, prototypes etc",
+      "priority": 2
+    },
+    {
+      "id": 2,
+      "title": "Refresh HTML and CSS",
+      "body": "Need to refresh HTML and CSS concepts, after learning some JavaScript. Maybe get to know CSS Grid and PostCSS, they seem to be trending.",
+      "priority": 1
+    },
+    {
+      "id": 4,
+      "title": "Winter clothes",
+      "body": "Winter is coming! Need some really warm clothes: shoes, sweater, hat, jacket, scarf etc. Maybe should get a set of sportwear as well so I'll be able to do some excercises in the park.",
+      "priority": 0
+    },
+    {
+      "title": "Hello, my dear!",
+      "body": "How is your summer going?",
+      "priority": 2,
+      "id": 5,
+      "piority": 2
+    },
+    {
+      "title": "1",
+      "body": "1",
+      "priority": 0,
+      "id": 6
+    }
+  ]
+}
