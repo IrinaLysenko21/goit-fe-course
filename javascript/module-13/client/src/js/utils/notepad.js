@@ -6,16 +6,15 @@ export default class Notepad {
     this._notes = [];
   }
 
+  get notes() {
+    return this._notes;
+  }
+
   getNotes() {
     return api.getNotes().then(notes => {
       this._notes = notes;
-      console.log(this._notes);
       return this._notes;
     });
-  }
-
-  get notes() {
-    return this._notes;
   }
 
   saveUserInput(userTitle, userBody) {
@@ -36,8 +35,6 @@ export default class Notepad {
   saveNote(note) {
     return api.saveNote(note).then(savedNote => {
       this._notes.push(savedNote);
-      console.log(this._notes);
-
       return savedNote;
     });
   }
@@ -48,16 +45,12 @@ export default class Notepad {
 
   deleteNote(id) {
     return api.deleteNote(id).then(() => {
-      console.log(id);
       const noteToDelete = this.findNoteById(id);
 
       if (noteToDelete) {
         this._notes = this._notes.filter(note => note.id !== id);
+        return noteToDelete;
       }
-
-      console.log(this._notes);
-
-      return noteToDelete;
     });
   }
 
@@ -67,9 +60,8 @@ export default class Notepad {
 
       if (noteToUpdate) {
         Object.assign(noteToUpdate, updatedNote);
+        return updatedNote;
       }
-
-      return updatedNote;
     });
   }
 
@@ -79,9 +71,8 @@ export default class Notepad {
 
       if (noteToChangePriority) {
         noteToChangePriority.priority = newPriority;
+        return updatedNote;
       }
-
-      return updatedNote;
     });
   }
 

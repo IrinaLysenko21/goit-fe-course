@@ -6,7 +6,6 @@ import successMsg from '../components/Success/Success';
 import errorMsg from '../components/Error/Error';
 import storage from './storage';
 
-
 const notepad = new Notepad();
 const refs = view.getRefs();
 
@@ -66,10 +65,9 @@ const handleNoteClick = ({target}) => {
   switch (action) {
     case NOTE_ACTIONS.DELETE:
       const listItemToDelete = view.findParentListItem(target);
-      notepad.deleteNote(listItemToDelete.dataset.id)
-      .then(view.removeListItem(listItemToDelete))
-      .then(successMsg('Заметка успешно удалена!'))
-      .catch(console.error());
+      notepad.deleteNote(listItemToDelete.dataset.id).catch(console.error());
+      view.removeListItem(listItemToDelete);
+      successMsg('Заметка успешно удалена!');
 
       break;
 
@@ -96,7 +94,4 @@ refs.editor.addEventListener('keyup', handleEditorInputSaving);
 refs.editor.addEventListener('submit', handleEditorSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);
-
-console.log(notepad.notes);
-console.log(notepad.filterNotesByPriority(2));
 

@@ -20,7 +20,6 @@ const addListItem = (listRef, note) => {
 
 const findParentListItem = element => {
   const parentListItem = element.closest('.note-list__item');
-
   return parentListItem;
 }
 
