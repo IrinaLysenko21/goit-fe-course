@@ -9,9 +9,16 @@ import storage from './storage';
 const notepad = new Notepad();
 const refs = view.getRefs();
 
-notepad.getNotes().then(notes => {
-  view.renderNotesList(refs.noteList, notes);
-});
+(async () => {
+  try {
+    const notes = await notepad.getNotes();
+    view.renderNotesList(refs.noteList, notes);
+
+    return notes.data;
+  } catch (error) {
+    throw error;
+  }
+})();
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
@@ -46,10 +53,17 @@ const handleEditorSubmit = evt => {
   const noteTitle = input.value;
   const noteBody = textarea.value;
 
-  notepad.saveUserInput(noteTitle, noteBody)
-  .then(note => view.addListItem(refs.noteList, note))
-  .catch(console.error());
-  successMsg('Заметка успешно добавлена!');
+  (async () => {
+    try {
+      const note = await notepad.saveUserInput(noteTitle, noteBody);
+      view.addListItem(refs.noteList, note);
+      successMsg('Заметка успешно добавлена!');
+
+      return note.data;
+    } catch (error) {
+      throw errorMsg('Ошибка при добавлении заметки!');
+    }
+  })();
 
   storage.remove('noteTitle');
   storage.remove('noteBody');
@@ -64,10 +78,18 @@ const handleNoteClick = ({target}) => {
 
   switch (action) {
     case constants.NOTE_ACTIONS.DELETE:
-      const listItemToDelete = view.findParentListItem(target);
-      notepad.deleteNote(listItemToDelete.dataset.id).catch(console.error());
-      view.removeListItem(listItemToDelete);
-      successMsg('Заметка успешно удалена!');
+      (async () => {
+        try {
+          const listItemToDelete = view.findParentListItem(target);
+          const deletedNote = await notepad.deleteNote(listItemToDelete.dataset.id);
+          view.removeListItem(listItemToDelete);
+          successMsg('Заметка успешно удалена!');
+
+          return deletedNote.data;
+        } catch (error) {
+          throw errorMsg('Ошибка при удалении заметки!');
+        }
+      })();
 
       break;
 

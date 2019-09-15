@@ -18,7 +18,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -30,11 +30,11 @@ export default class Notepad {
         priority: constants.PRIORITY_TYPES.LOW,
       }
 
-      this.saveNote(newItem)
+      const newNote = await this.saveNote(newItem);
 
-      return newItem;
+      return newNote;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -44,7 +44,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -54,7 +54,7 @@ export default class Notepad {
 
   async deleteNote(id) {
     try {
-      const response = axios.delete(`/notes/${id}`);
+      const response = await axios.delete(`/notes/${id}`);
 
       const noteToDelete = this.findNoteById(id);
 
@@ -65,7 +65,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   };
 
@@ -82,7 +82,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
@@ -99,7 +99,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw error;
+      throw new Error();
     }
   }
 
