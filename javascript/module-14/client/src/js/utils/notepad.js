@@ -1,13 +1,11 @@
 import axios from 'axios';
 import constants from './constants';
-import * as api from '../services/api';
 
-axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 export default class Notepad {
   constructor() {
     this._notes = [];
-    // this.URL = axios.defaults.baseURL;
   }
 
   get notes() {
@@ -16,76 +14,93 @@ export default class Notepad {
 
   async getNotes() {
     try {
-      const response = await axios.get('notes');
+      const response = await axios.get('/notes');
 
       return response.data;
     } catch (error) {
       throw error;
     }
-
-    // return api.getNotes().then(notes => {
-    //   this._notes = notes;
-    //   return this._notes;
-    // });
   }
 
-  saveUserInput(userTitle, userBody) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const newItem = {
-          title: userTitle,
-          body: userBody,
-          priority: constants.PRIORITY_TYPES.LOW,
-        }
+  async saveUserInput(userTitle, userBody) {
+    try {
+      const newItem = {
+        title: userTitle,
+        body: userBody,
+        priority: constants.PRIORITY_TYPES.LOW,
+      }
 
-        resolve(this.saveNote(newItem).catch(console.error()));
-        reject('Error');
-      }, 300);
-    });
+      this.saveNote(newItem)
+
+      return newItem;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  saveNote(note) {
-    return api.saveNote(note).then(savedNote => {
-      this._notes.push(savedNote);
-      return savedNote;
-    });
+  async saveNote(note) {
+    try {
+      const response = await axios.post('/notes', note);
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   findNoteById(id) {
     return this._notes.find(note => note.id === id);
   }
 
-  deleteNote(id) {
-    return api.deleteNote(id).then(() => {
+  async deleteNote(id) {
+    try {
+      const response = axios.delete(`/notes/${id}`);
+
       const noteToDelete = this.findNoteById(id);
 
       if (noteToDelete) {
         this._notes = this._notes.filter(note => note.id !== id);
         return noteToDelete;
       }
-    });
-  }
 
-  updateNoteContent(id, updatedContent) {
-    return api.updateNote(id, updatedContent).then(updatedNote => {
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  async updateNoteContent(id, updatedContent) {
+    try {
+      const response = await axios.patch(`/notes/${id}`, updatedContent);
+
       const noteToUpdate = this.findNoteById(id);
 
       if (noteToUpdate) {
         Object.assign(noteToUpdate, updatedNote);
         return updatedNote;
       }
-    });
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  updateNotePriority(id, newPriority) {
-    return api.updateNote(id, {priority: newPriority}).then(updatedNote => {
+  async updateNotePriority(id, newPriority) {
+    try {
+      const response = await axios.patch(`/notes/${id}`, {priority: newPriority});
+
       const noteToChangePriority = this.findNoteById(id);
 
       if (noteToChangePriority) {
         noteToChangePriority.priority = newPriority;
         return updatedNote;
       }
-    });
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   filterNotesByQuery(query = '') {
