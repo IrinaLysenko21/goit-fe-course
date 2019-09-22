@@ -27,6 +27,18 @@ const removeListItem = listItem => {
   listItem.remove();
 };
 
+const editListItemContent = (listItem, title, body) => {
+  console.log(listItem.querySelector('.note__title'));
+  console.log(listItem.querySelector('.note__body'));
+
+  listItem.querySelector('.note__title').innerHTML = title;
+  listItem.querySelector('.note__body').innerHTML = body;
+};
+
+const editListItemPriority = (listItem, priority) => {
+  listItem.querySelector('.note__priority').innerHTML = priority;
+};
+
 const getRefs = () => ({
   searchInput: document.querySelector('.search-form__input'),
   editor: document.querySelector('.note-editor'),
@@ -34,4 +46,4 @@ const getRefs = () => ({
   openEditorModalBtn: document.querySelector('button[data-action="open-editor"]'),
 });
 
-export default {renderNotesList, addListItem, findParentListItem, removeListItem, getRefs};
+export default {renderNotesList, addListItem, findParentListItem, removeListItem, getRefs, editListItemContent, editListItemPriority};
