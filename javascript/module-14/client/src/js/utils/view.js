@@ -27,12 +27,9 @@ const removeListItem = listItem => {
   listItem.remove();
 };
 
-const editListItemContent = (listItem, title, body) => {
-  console.log(listItem.querySelector('.note__title'));
-  console.log(listItem.querySelector('.note__body'));
-
-  listItem.querySelector('.note__title').innerHTML = title;
-  listItem.querySelector('.note__body').innerHTML = body;
+const editListItemContent = (listItem, updatedContent) => {
+  listItem.querySelector('.note__title').innerHTML = updatedContent.title;
+  listItem.querySelector('.note__body').innerHTML = updatedContent.body;
 };
 
 const editListItemPriority = (listItem, priority) => {

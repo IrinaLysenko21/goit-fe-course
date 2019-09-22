@@ -14,13 +14,11 @@ const refs = view.getRefs();
     const notes = await notepad.getNotes();
     view.renderNotesList(refs.noteList, notes);
 
-    return notes.data;
+    return notes;
   } catch (error) {
     throw error;
   }
 })();
-
-
 
 const handleOpenEditorModal = () => {
   Micromodal.show('note-editor-modal');
@@ -29,28 +27,29 @@ const handleOpenEditorModal = () => {
     refs.editor.classList.replace('edit', 'add');
   }
 
+  const [input, textarea] = refs.editor.elements;
+
+  input.value = '';
+  textarea.value = '';
+
   const noteTitle = storage.load('noteTitle');
   const noteBody = storage.load('noteBody');
 
   if (noteTitle || noteBody) {
-    const [input, textarea] = refs.editor.elements;
 
     input.value = noteTitle;
     textarea.value = noteBody;
   }
 };
 
-
-
 const handleEditorInputSaving = evt => {
   const [input, textarea] = evt.currentTarget.elements;
 
-  storage.save('noteTitle', input.value);
-  storage.save('noteBody', textarea.value);
+  if (evt.currentTarget.classList.contains('add')) {
+    storage.save('noteTitle', input.value);
+    storage.save('noteBody', textarea.value);
+  }
 };
-
-
-
 
 const handleAddingSubmit = evt => {
   evt.preventDefault();
@@ -85,13 +84,6 @@ const handleAddingSubmit = evt => {
   Micromodal.close('note-editor-modal');
 };
 
-
-
-
-
-
-
-
 const handleNoteClick = ({target}) => {
   if (target.nodeName !== 'I') return;
   const action = target.closest('button').dataset.action;
@@ -114,48 +106,43 @@ const handleNoteClick = ({target}) => {
       break;
 
     case constants.NOTE_ACTIONS.EDIT:
-          Micromodal.show('note-editor-modal');
+      Micromodal.show('note-editor-modal');
 
-          if (refs.editor.classList.contains('add')) {
-            refs.editor.classList.replace('add', 'edit');
-          }
+      if (refs.editor.classList.contains('add')) {
+        refs.editor.classList.replace('add', 'edit');
+      }
 
-          const listItemToEdit = view.findParentListItem(target);
-          const noteToEdit = notepad.findNoteById(listItemToEdit.dataset.id);
+      const listItemToEdit = view.findParentListItem(target);
+      const noteToEdit = notepad.findNoteById(listItemToEdit.dataset.id);
 
-          const [input, textarea] = refs.editor.elements;
-          input.value = noteToEdit.title;
-          textarea.value = noteToEdit.body;
+      const [input, textarea] = refs.editor.elements;
+      input.value = noteToEdit.title;
+      textarea.value = noteToEdit.body;
 
-          const handleEditingSubmit = evt => {
-            evt.preventDefault();
+      const handleEditingSubmit = evt => {
+        evt.preventDefault();
 
-            if (!evt.currentTarget.classList.contains('edit')) return;
+        if (!evt.currentTarget.classList.contains('edit')) return;
 
-            (async () => {
-              try {
-              const updatedContent = notepad.createUpdatedContent(input.value, textarea.value);
+        (async () => {
+          try {
+          const updatedContent = notepad.createUpdatedContent(input.value, textarea.value);
 
-              console.log(updatedContent);
+          const updatedNote = await notepad.updateNoteContent(noteToEdit.id, updatedContent);
 
-              const updatedNote = await notepad.updateNoteContent(noteToEdit.id, updatedContent);
+          view.editListItemContent(listItemToEdit, updatedContent);
+          successMsg('Заметка успешно отредактирована!');
 
-              const listItemToEdit = view.findParentListItem(target);
-              view.editListItemContent(listItemToEdit, updatedContent.title, updatedContent.body);
-              successMsg('Заметка успешно отредактирована!');
+          return updatedNote;
+        } catch (error) {
+          throw errorMsg('Ошибка при редактировании заметки!');
+        }})();
 
-              console.log(updatedNote);
+        evt.currentTarget.reset();
+        Micromodal.close('note-editor-modal');
+      };
 
-              return updatedNote;
-            } catch (error) {
-              throw errorMsg('Ошибка при редактировании заметки!');
-            }})();
-
-            evt.currentTarget.reset();
-            Micromodal.close('note-editor-modal');
-          };
-
-          refs.editor.addEventListener('submit', handleEditingSubmit);
+      refs.editor.addEventListener('submit', handleEditingSubmit);
 
       break;
 
@@ -198,21 +185,25 @@ const handleNoteClick = ({target}) => {
           throw errorMsg('Ошибка при редактировании заметки!');
         }})();
       }
+
       break;
   }
 };
 
-
-
 const handleFilterInput = ({target}) => {
-  view.renderNotesList(refs.noteList, notepad.filterNotesByQuery(target.value));
+  if (target.value !== '') {
+    if (Number(target.value) === 0 || Number(target.value) === 1 || Number(target.value) === 2) {
+      view.renderNotesList(refs.noteList, notepad.filterNotesByPriority(Number(target.value)));
+    } else {
+      view.renderNotesList(refs.noteList, notepad.filterNotesByQuery(target.value));
+    }
+  } else {
+    view.renderNotesList(refs.noteList, notepad.notes);
+  }
 };
-
-
 
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
 refs.editor.addEventListener('keyup', handleEditorInputSaving);
 refs.editor.addEventListener('submit', handleAddingSubmit);
-// refs.editor.addEventListener('submit', handleEditingSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);

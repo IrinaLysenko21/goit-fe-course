@@ -76,8 +76,6 @@ export default class Notepad {
       body: newBody,
     };
 
-    console.log(updatedContent);
-
     return updatedContent;
   }
 
@@ -89,8 +87,6 @@ export default class Notepad {
 
       const response = await axios.patch(`notes/${id}`, updatedContent);
       Object.assign(noteToUpdate, response.data);
-
-      console.log(this._notes);
 
       return response.data;
     } catch (error) {
@@ -105,13 +101,7 @@ export default class Notepad {
       if (!noteToChangePriority) return;
 
       const response = await axios.patch(`notes/${id}`, {priority: newPriority});
-      console.log(response);
-      console.log(response.data);
-      console.log(newPriority);
-
       noteToChangePriority.priority = newPriority;
-
-      console.log(this._notes);
 
       return response.data;
     } catch (error) {
