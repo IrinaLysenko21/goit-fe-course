@@ -6,10 +6,28 @@ axios.defaults.baseURL = 'http://localhost:3000/';
 export default class Notepad {
   constructor() {
     this._notes = [];
+    this._noteToEdit = {};
+    this._listItemToEdit;
+  }
+
+  set noteToEdit(note) {
+    this._noteToEdit = note;
+  }
+
+  set listItemToEdit(listItem) {
+    this._listItemToEdit = listItem;
   }
 
   get notes() {
     return this._notes;
+  }
+
+  get noteToEdit() {
+    return this._noteToEdit;
+  }
+
+  get listItemToEdit() {
+    return this._listItemToEdit;
   }
 
   async getNotes() {
@@ -71,12 +89,12 @@ export default class Notepad {
   };
 
   createUpdatedContent(newTitle, newBody) {
-    const updatedContent = {
-      title: newTitle,
-      body: newBody,
-    };
+      const updatedContent = {
+        title: newTitle,
+        body: newBody,
+      };
 
-    return updatedContent;
+      return updatedContent;
   }
 
   async updateNoteContent(id, updatedContent) {

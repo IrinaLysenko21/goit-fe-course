@@ -56,7 +56,7 @@ const handleAddingSubmit = evt => {
 
   if (!evt.currentTarget.classList.contains('add')) return;
 
-  const [input, textarea] = evt.target.elements;
+  const [input, textarea] = evt.currentTarget.elements;
 
   if (input.value.trim() === '' || textarea.value.trim() === '') {
     return errorMsg('Необходимо заполнить все поля!');
@@ -119,30 +119,8 @@ const handleNoteClick = ({target}) => {
       input.value = noteToEdit.title;
       textarea.value = noteToEdit.body;
 
-      const handleEditingSubmit = evt => {
-        evt.preventDefault();
-
-        if (!evt.currentTarget.classList.contains('edit')) return;
-
-        (async () => {
-          try {
-          const updatedContent = notepad.createUpdatedContent(input.value, textarea.value);
-
-          const updatedNote = await notepad.updateNoteContent(noteToEdit.id, updatedContent);
-
-          view.editListItemContent(listItemToEdit, updatedContent);
-          successMsg('Заметка успешно отредактирована!');
-
-          return updatedNote;
-        } catch (error) {
-          throw errorMsg('Ошибка при редактировании заметки!');
-        }})();
-
-        evt.currentTarget.reset();
-        Micromodal.close('note-editor-modal');
-      };
-
-      refs.editor.addEventListener('submit', handleEditingSubmit);
+      notepad.listItemToEdit = listItemToEdit;
+      notepad.noteToEdit = noteToEdit;
 
       break;
 
@@ -202,8 +180,37 @@ const handleFilterInput = ({target}) => {
   }
 };
 
+const handleEditingSubmit = evt => {
+  evt.preventDefault();
+
+  if (!evt.currentTarget.classList.contains('edit')) return;
+
+  const [input, textarea] = evt.currentTarget.elements;
+
+  if (input.value.trim() === '' || textarea.value.trim() === '') {
+    return errorMsg('Необходимо заполнить все поля!');
+  }
+
+  const updatedContent = notepad.createUpdatedContent(input.value, textarea.value);
+
+  (async () => {
+    try {
+      const updatedNote = await notepad.updateNoteContent(notepad.noteToEdit.id, updatedContent);
+
+      view.editListItemContent(notepad.listItemToEdit, updatedContent);
+      successMsg('Заметка успешно отредактирована!');
+
+      return updatedNote;
+    } catch (error) {
+      throw errorMsg('Ошибка при редактировании заметки!');
+    }})();
+
+    Micromodal.close('note-editor-modal');
+  };
+
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
 refs.editor.addEventListener('keyup', handleEditorInputSaving);
 refs.editor.addEventListener('submit', handleAddingSubmit);
+refs.editor.addEventListener('submit', handleEditingSubmit);
 refs.noteList.addEventListener('click', handleNoteClick);
 refs.searchInput.addEventListener('input', handleFilterInput);
