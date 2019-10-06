@@ -89,7 +89,6 @@ const handleNoteClick = ({ target }) => {
 
   const pressedBtn = target.closest('button');
   const { action } = pressedBtn.dataset;
-
   // eslint-disable-next-line default-case
   switch (action) {
     case constants.NOTE_ACTIONS.DELETE: {

@@ -46,7 +46,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -62,7 +62,7 @@ export default class Notepad {
 
       return newNote;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -73,7 +73,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -91,7 +91,7 @@ export default class Notepad {
       await axios.delete(`notes/${id}`);
       this._notes = this._notes.filter((note) => note.id !== id);
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -104,8 +104,10 @@ export default class Notepad {
       const response = await axios.patch(`notes/${id}`, updatedContent);
       const updatedNote = response.data;
       Object.assign(noteToUpdate, updatedNote);
+      // eslint-disable-next-line consistent-return
+      return updatedNote;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -115,10 +117,12 @@ export default class Notepad {
 
       if (!noteToChangePriority) return;
 
-      await axios.patch(`notes/${id}`, { priority: newPriority });
+      const updatedNote = await axios.patch(`notes/${id}`, { priority: newPriority });
       noteToChangePriority.priority = newPriority;
+      // eslint-disable-next-line consistent-return
+      return updatedNote.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
