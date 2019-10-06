@@ -16,7 +16,7 @@ const refs = view.getRefs();
 
     return notes;
   } catch (error) {
-    throw error;
+    throw errorMsg('Ошибка при загрузке заметок!');
   }
 })();
 
@@ -36,13 +36,12 @@ const handleOpenEditorModal = () => {
   const noteBody = storage.load('noteBody');
 
   if (noteTitle || noteBody) {
-
     input.value = noteTitle;
     textarea.value = noteBody;
   }
 };
 
-const handleEditorInputSaving = evt => {
+const handleEditorInputSaving = (evt) => {
   const [input, textarea] = evt.currentTarget.elements;
 
   if (evt.currentTarget.classList.contains('add')) {
@@ -51,7 +50,7 @@ const handleEditorInputSaving = evt => {
   }
 };
 
-const handleAddingSubmit = evt => {
+const handleAddingSubmit = (evt) => {
   evt.preventDefault();
 
   if (!evt.currentTarget.classList.contains('add')) return;
@@ -59,7 +58,8 @@ const handleAddingSubmit = evt => {
   const [input, textarea] = evt.currentTarget.elements;
 
   if (input.value.trim() === '' || textarea.value.trim() === '') {
-    return errorMsg('Необходимо заполнить все поля!');
+    errorMsg('Необходимо заполнить все поля!');
+    return;
   }
 
   const noteTitle = input.value;
@@ -84,12 +84,14 @@ const handleAddingSubmit = evt => {
   Micromodal.close('note-editor-modal');
 };
 
-const handleNoteClick = ({target}) => {
+const handleNoteClick = ({ target }) => {
   if (target.nodeName !== 'I') return;
-  const action = target.closest('button').dataset.action;
 
+  const pressedBtn = target.closest('button');
+  const { action } = pressedBtn.dataset;
+  // eslint-disable-next-line default-case
   switch (action) {
-    case constants.NOTE_ACTIONS.DELETE:
+    case constants.NOTE_ACTIONS.DELETE: {
       const listItemToDelete = view.findParentListItem(target);
       (async () => {
         try {
@@ -104,8 +106,9 @@ const handleNoteClick = ({target}) => {
       })();
 
       break;
+    }
 
-    case constants.NOTE_ACTIONS.EDIT:
+    case constants.NOTE_ACTIONS.EDIT: {
       Micromodal.show('note-editor-modal');
 
       if (refs.editor.classList.contains('add')) {
@@ -123,8 +126,9 @@ const handleNoteClick = ({target}) => {
       notepad.noteToEdit = noteToEdit;
 
       break;
+    }
 
-    case constants.NOTE_ACTIONS.DECREASE_PRIORITY:
+    case constants.NOTE_ACTIONS.DECREASE_PRIORITY: {
       const listItemToDecreasePriority = view.findParentListItem(target);
       const noteToDecreasePriority = notepad.findNoteById(listItemToDecreasePriority.dataset.id);
 
@@ -133,19 +137,22 @@ const handleNoteClick = ({target}) => {
 
         (async () => {
           try {
-          const updatedNote = await notepad.updateNotePriority(noteToDecreasePriority.id, noteToDecreasePriority.priority);
-          view.editListItemPriority(listItemToDecreasePriority, noteToDecreasePriority.priority);
-          successMsg('Приоритет заметки понижен!');
+            const updatedNote = await notepad
+              .updateNotePriority(noteToDecreasePriority.id, noteToDecreasePriority.priority);
+            view.editListItemPriority(listItemToDecreasePriority, noteToDecreasePriority.priority);
+            successMsg('Приоритет заметки понижен!');
 
-          return updatedNote;
-        } catch (error) {
-          throw errorMsg('Ошибка при редактировании заметки!');
-        }})();
+            return updatedNote;
+          } catch (error) {
+            throw errorMsg('Ошибка при редактировании заметки!');
+          }
+        })();
       }
 
       break;
+    }
 
-    case constants.NOTE_ACTIONS.INCREASE_PRIORITY:
+    case constants.NOTE_ACTIONS.INCREASE_PRIORITY: {
       const listItemToIncreasePriority = view.findParentListItem(target);
       const noteToIncreasePriority = notepad.findNoteById(listItemToIncreasePriority.dataset.id);
 
@@ -154,21 +161,24 @@ const handleNoteClick = ({target}) => {
 
         (async () => {
           try {
-          const updatedNote = await notepad.updateNotePriority(noteToIncreasePriority.id, noteToIncreasePriority.priority);
-          view.editListItemPriority(listItemToIncreasePriority, noteToIncreasePriority.priority);
-          successMsg('Приоритет заметки повышен!');
+            const updatedNote = await notepad
+              .updateNotePriority(noteToIncreasePriority.id, noteToIncreasePriority.priority);
+            view.editListItemPriority(listItemToIncreasePriority, noteToIncreasePriority.priority);
+            successMsg('Приоритет заметки повышен!');
 
-          return updatedNote;
-        } catch (error) {
-          throw errorMsg('Ошибка при редактировании заметки!');
-        }})();
+            return updatedNote;
+          } catch (error) {
+            throw errorMsg('Ошибка при редактировании заметки!');
+          }
+        })();
       }
 
       break;
+    }
   }
 };
 
-const handleFilterInput = ({target}) => {
+const handleFilterInput = ({ target }) => {
   if (target.value !== '') {
     if (Number(target.value) === 0 || Number(target.value) === 1 || Number(target.value) === 2) {
       view.renderNotesList(refs.noteList, notepad.filterNotesByPriority(Number(target.value)));
@@ -180,7 +190,7 @@ const handleFilterInput = ({target}) => {
   }
 };
 
-const handleEditingSubmit = evt => {
+const handleEditingSubmit = (evt) => {
   evt.preventDefault();
 
   if (!evt.currentTarget.classList.contains('edit')) return;
@@ -188,10 +198,11 @@ const handleEditingSubmit = evt => {
   const [input, textarea] = evt.currentTarget.elements;
 
   if (input.value.trim() === '' || textarea.value.trim() === '') {
-    return errorMsg('Необходимо заполнить все поля!');
+    errorMsg('Необходимо заполнить все поля!');
+    return;
   }
 
-  const updatedContent = notepad.createUpdatedContent(input.value, textarea.value);
+  const updatedContent = Notepad.createUpdatedContent(input.value, textarea.value);
 
   (async () => {
     try {
@@ -203,10 +214,11 @@ const handleEditingSubmit = evt => {
       return updatedNote;
     } catch (error) {
       throw errorMsg('Ошибка при редактировании заметки!');
-    }})();
+    }
+  })();
 
-    Micromodal.close('note-editor-modal');
-  };
+  Micromodal.close('note-editor-modal');
+};
 
 refs.openEditorModalBtn.addEventListener('click', handleOpenEditorModal);
 refs.editor.addEventListener('keyup', handleEditorInputSaving);

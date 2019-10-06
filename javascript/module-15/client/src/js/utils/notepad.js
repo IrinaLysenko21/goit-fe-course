@@ -7,7 +7,16 @@ export default class Notepad {
   constructor() {
     this._notes = [];
     this._noteToEdit = {};
-    this._listItemToEdit;
+    this._listItemToEdit = {};
+  }
+
+  static createUpdatedContent(newTitle, newBody) {
+    const updatedContent = {
+      title: newTitle,
+      body: newBody,
+    };
+
+    return updatedContent;
   }
 
   set noteToEdit(note) {
@@ -37,7 +46,7 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -47,13 +56,13 @@ export default class Notepad {
         title: userTitle,
         body: userBody,
         priority: constants.PRIORITY_TYPES.LOW,
-      }
+      };
 
       const newNote = await this.saveNote(newItem);
 
       return newNote;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -64,12 +73,12 @@ export default class Notepad {
 
       return response.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
   findNoteById(id) {
-    const noteToFind = this._notes.find(note => note.id === id);
+    const noteToFind = this._notes.find((note) => note.id === id);
     return noteToFind;
   }
 
@@ -79,22 +88,11 @@ export default class Notepad {
 
       if (!noteToDelete) return;
 
-      const response = await axios.delete(`notes/${id}`);
-      this._notes = this._notes.filter(note => note.id !== id);
-
-      return response.data;
+      await axios.delete(`notes/${id}`);
+      this._notes = this._notes.filter((note) => note.id !== id);
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
-  };
-
-  createUpdatedContent(newTitle, newBody) {
-      const updatedContent = {
-        title: newTitle,
-        body: newBody,
-      };
-
-      return updatedContent;
   }
 
   async updateNoteContent(id, updatedContent) {
@@ -104,11 +102,12 @@ export default class Notepad {
       if (!noteToUpdate) return;
 
       const response = await axios.patch(`notes/${id}`, updatedContent);
-      Object.assign(noteToUpdate, response.data);
-
-      return response.data;
+      const updatedNote = response.data;
+      Object.assign(noteToUpdate, updatedNote);
+      // eslint-disable-next-line consistent-return
+      return updatedNote;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
@@ -118,21 +117,21 @@ export default class Notepad {
 
       if (!noteToChangePriority) return;
 
-      const response = await axios.patch(`notes/${id}`, {priority: newPriority});
+      const updatedNote = await axios.patch(`notes/${id}`, { priority: newPriority });
       noteToChangePriority.priority = newPriority;
-
-      return response.data;
+      // eslint-disable-next-line consistent-return
+      return updatedNote.data;
     } catch (error) {
-      throw new Error();
+      throw new Error(error);
     }
   }
 
   filterNotesByQuery(query = '') {
-    return this._notes.filter(note => note.title.toLowerCase().includes(query.toLowerCase()) ||
-    note.body.toLowerCase().includes(query.toLowerCase()));
+    return this._notes.filter((note) => note.title.toLowerCase().includes(query.toLowerCase())
+    || note.body.toLowerCase().includes(query.toLowerCase()));
   }
 
   filterNotesByPriority(priority) {
-    return this._notes.filter(note => note.priority === priority);
+    return this._notes.filter((note) => note.priority === priority);
   }
 }
